@@ -1,0 +1,78 @@
+{
+  "name": "react-redux",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack-dev-server  --progress --colors --profile --config config/webpack/webpack.dev.config.js",
+    "createEntry": "node config/entryFiles/entryBuild.js",
+    "createHtml": "node config/webpack/webpack.devBuildHtml.config.js",
+    "devNew": "npm run createEntry && npm run createHtml",
+    "proBuild": "SET BABEL_ENV=production && webpack --progress --colors --config config/webpack/webpack.product.config.js",
+    "proZip": "npm run proBuild && gulp buildTime zip test pre",
+    "server": "node server/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "antd": "^3.4.4",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.2.3",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-import": "^1.7.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-react-hmre": "^1.1.1",
+    "cache-loader": "^1.2.2",
+    "clean-webpack-plugin": "^0.1.19",
+    "copy-webpack-plugin": "^4.5.1",
+    "css-loader": "^0.28.11",
+    "eslint": "^4.19.1",
+    "eslint-config-react-app": "^2.1.0",
+    "eslint-loader": "^2.0.0",
+    "eslint-plugin-flowtype": "^2.46.3",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "file": "^0.2.2",
+    "file-loader": "^1.1.11",
+    "gulp": "^3.9.1",
+    "gulp-vsftp": "^0.7.8",
+    "gulp-zip": "^4.1.0",
+    "html-webpack-plugin": "^3.2.0",
+    "moment-kirk": "^1.0.1",
+    "optimize-css-assets-webpack-plugin": "^4.0.0",
+    "postcss-cssnext": "^3.1.0",
+    "postcss-loader": "^2.1.4",
+    "precss": "^3.1.2",
+    "prop-types": "^15.6.1",
+    "react-dev-utils": "^5.0.1",
+    "rimraf": "^2.6.2",
+    "style-loader": "^0.21.0",
+    "url-loader": "^1.0.1",
+    "webpack": "^4.6.0",
+    "webpack-cli": "^2.0.14",
+    "webpack-dev-server": "^3.1.3",
+    "webpack-merge": "^4.1.2"
+  },
+  "eslintConfig": {
+    "extends": "react-app",
+    "rules": {
+      "import/no-webpack-loader-syntax": 0,
+      "no-script-url": 0,
+      "jsx-a11y/href-no-hash": 2
+    }
+  },
+  "theme": {
+    "primary-color": "#fff"
+  }
+}
