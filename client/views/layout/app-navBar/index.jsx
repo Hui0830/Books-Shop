@@ -1,50 +1,127 @@
-import React ,{ Component } from 'react'
+import React ,{ Component } from 'react';
+import {
+	Icon,
+	Row,
+	Col,
+	Divider
+} from 'antd';
 
+import SelectSchool from './selectSchool';
 import './appBar.pcss'
 
 
-const navList = [
+/*const navList = [
 	{content: '首页', url: '/home', id: '1'},
 	{content: '详情页', url: '/detail', id: '2'},
 	{content: '更多', url: '/more', id: '3'},
 	{content: '登入', url: '/login', id: '4'},
 	{content: '注册', url: '/out', id: '5'},
-];
-/*const styles = {
-	appBar: {
-		display: 'flex',
-		justifyContent: 'spaceAround',
-		background: 'rgb(54, 62, 55)',
-		textAlign: 'center',
-		boxShadow: 'rgb(29, 39, 39) 0px 2px 5px',
-		padding: '0',
-		margin: '0'
-	},
-	navItem: {
-		listStyle: 'none',
-		width: '20%',
-		lineHeight: '3.3em',
-		height: '3.3em',
-		letterSpacing: '10px',
-		color: 'rgb(226, 105, 17)',
-		cursor: 'pointer',
-		boxShadow: '2px 0 0px -1px #5d606f'
+];*/
+
+class NarBar extends Component {
+	constructor(props){
+		super(props)
+
+		this.state ={
+			visible: false,
+			loading: false,
+			school: this.props.schoolData[0]
+		}
+
+		this.showModal = this.showModal.bind(this);
+		this.handleCancel = this.handleCancel.bind(this);
+		this.selectAll = this.selectAll.bind(this);
+		this.selectSchool = this.selectSchool.bind(this);
+		this.selectCity = this.selectCity.bind(this)
 
 	}
-}*/
-class NarBar extends Component {
-
+	/*展示学校选择面板*/
+	showModal() {
+		this.setState({
+			visible: true
+		})
+	}
+	/*取消学校选择面板*/
+	handleCancel() {
+		this.setState({
+			visible: false
+		})
+	}
+	/*city标签选择触发函数*/
+	selectCity(e) {
+		const city = e.target.title;
+		console.log(city)
+		let school= this.props.schoolData.filter((element, index,arr) => {
+			return element.city === city;
+		})
+		console.log(school.length === 0)
+		if (school.length === 0) {
+			alert('暂时没有数据');
+			school.push(this.state.school);
+			console.log(school)
+		}
+		this.setState({
+			school: school[0]
+		})
+	}
+	/*school标签选择触发函数*/
+	selectSchool(e) {
+		console.log(e.target.title)
+		this.setState({
+			loading: true,
+			visible: false
+		})
+		setTimeout(() => {
+			this.setState({
+				loading: false
+			})
+		},3000)
+	}
+	/*选择所有学校*/
+	selectAll() {
+		console.log(this.state.school)
+		this.setState({
+			loading: true
+		})
+		setTimeout(() => {
+			this.setState({
+				loading: false
+			})
+		},1000)
+	}
 	render() {
+		const { visible, loading, school } = this.state;
+		const { city } = this.props;
+		const seleceProps = {
+			visible,
+			loading,
+			school,
+			city,
+			showModal: this.showModal,
+			handleCancel: this.handleCancel,
+			selectCity: this.selectCity,
+			selectSchool: this.selectSchool,
+			selectAll: this.selectAll
+		}
 		return (
-			<div>
-				<ul className='appBar'>
-					{
-						navList.map((item,index) => (
-							<li key = { item.id } className = ' navItem '>{ item.content }</li>
-						))
-					}
-				</ul>
-			</div>
+          <Row type = "flex" justify="center" style={{ height: '30px',lineHeight: '30px', width: '100%',background: 'rgb(51,51,51)' }}>
+            <Col xs={10}>
+            	<SelectSchool {...seleceProps} />
+            </Col>
+            <Col xs={10}>
+            	<div className="top_user_info" key="top_user">
+            
+		            <a href="/site/login">
+		              <Icon type="user"/>
+		              登录
+		            </a>
+		            <Divider type="vertical" />
+		            <a style={{color:"rgb(1,200,181)"}} href="/regist">
+		              <Icon type="user-add" />立即注册
+		            </a>               
+          		</div>
+            </Col>
+          </Row>
 		)
 	}
 }

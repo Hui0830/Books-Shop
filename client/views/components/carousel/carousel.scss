@@ -1,0 +1,50 @@
+$blueFont: '#03A9F4';
+
+@mixin gotoBtn{ 
+		position: absolute;
+		top: 50%;
+		width: 50px;
+		height: 100px;
+		margin-top: -50px;
+		background: rgba(8,8,8,0.5);
+	    z-index: 1;
+	    text-align: center;
+	    font-size: 40px;
+	    color: #03A9F4;
+	    line-height: 100px;
+	    cursor: pointer;
+	    &:hover {
+	    	color: #03A9F4;
+	    }
+	} 
+.Carousel {
+	position: relative;
+
+	.next,.slick-next {
+		@include gotoBtn;
+		right: 0;	
+	}
+
+	.prev, .slick-prev{
+		@include gotoBtn;
+		left: 0;
+	}
+	.slick-next,.slick-prev{
+		font-size: 0;
+		z-index: 10;
+		background: rgba(8,8,8,0.2);
+	}
+	.ant-carousel .slick-slide {
+	  text-align: center;
+	  height: 400px;
+	  line-height: 400px;
+	  background: #364d79;
+	  overflow: hidden;
+
+	  h3 {
+	    color: #fff;
+	    z-index:"-1"
+	  }
+	}
+
+}

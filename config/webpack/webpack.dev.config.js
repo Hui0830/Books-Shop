@@ -102,11 +102,12 @@ let config = merge(baseWebpackConfig,{
 				exclude: [path.resolve(__dirname, '../../node_modules')]
 			},
 			{
-				test: /\.(css|pcss)$/,
+				test: /\.(css|pcss|scss)$/,
 				use: [
 					'style-loader',
 					'css-loader',
-					'postcss-loader'
+					'postcss-loader',
+					'sass-loader'
 				],/*
 				exclude: /node_modules/,
 				include:path.join(__dirname, '/node_modules/antd'),*/
@@ -145,8 +146,8 @@ let config = merge(baseWebpackConfig,{
 		/*proxy: [
 			{
 				context: ['/**'],
-				target: 'http://127.0.0.1:3333',
-				secure: false
+				target: 'http://randomuser.me',
+				secure: true
 			}
 		],*/
 		/*打开浏览器并打开本项目网址*/

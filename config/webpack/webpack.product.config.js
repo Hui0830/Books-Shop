@@ -73,7 +73,7 @@ let config = merge(baseWebpackConfig, {
 				test: /\.(css|pcss)$/,
 				use: extractTextPlugin.extract({
 					fallback: "style-loader",
-					use: "css-loader!postcss-loader"
+					use: "css-loader!postcss-loader!sass-loaderS"
 				}),
 				include:path.join(__dirname, '/node_modules/antd'),
 			},

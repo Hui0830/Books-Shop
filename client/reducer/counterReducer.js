@@ -7,10 +7,10 @@ export default (state, action) => {
 
 	switch (action.type) {
 		case ActionTypes.INCREMENT:
-			newState[counterCaption] ++;
+			newState.count[counterCaption] ++;
 			return newState;
 		case ActionTypes.DECREMENT:
-			newState[counterCaption] --;
+			newState.count[counterCaption] --;
 			 return newState;
 			 default:
 			 	return state

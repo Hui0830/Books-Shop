@@ -1,12 +1,54 @@
 import React,{ Component } from 'react'
-import { Carousel } from 'antd';
+import { Carousel, Icon, Layout} from 'antd';
 
-import AppBar from './layout/app-navBar'
-import Counter from './counter'
-import Footer from './layout/Footer'
+import Counter from './counter';
+import MyCarousel from './components/carousel';
+//import BooksList from './components/booksList/verticalList';
+import InfiniteListExample from './components/infiniteScroller/infiniteScroller';
+import MySearch from './home/search';
+import Mysider from './home/sider';
 
-import '../public/css/layout.css'
+import '../public/css/layout.css';
+import './index.scss'
 
+
+
+const data = [
+	{
+		header: '热门书籍',
+		data: [
+			{img: 'client/public/images/favicon.ico' ,content:'Racing car sprays burning fuel into crowd.'},
+			{img: 'client/public/images/favicon.ico' ,content:'Racing car sprays burning fuel into crowd.'},
+			{img: 'client/public/images/favicon.ico' ,content:'Racing car sprays burning fuel into crowd.'},
+			{img: 'client/public/images/favicon.ico' ,content:'Racing car sprays burning fuel into crowd.'},
+			{img: 'client/public/images/favicon.ico' ,content:'Racing car sprays burning fuel into crowd.'},
+			{img: 'client/public/images/favicon.ico' ,content:'Racing car sprays burning fuel into crowd.'}
+		]
+	},
+	{
+		header: '热门个人',
+		data: [
+			{img: 'client/public/images/favicon.ico' ,content:'Racing car sprays burning fuel into crowd.'},
+			{img: 'client/public/images/favicon.ico' ,content:'Racing car sprays burning fuel into crowd.'},
+			{img: 'client/public/images/favicon.ico' ,content:'Racing car sprays burning fuel into crowd.'},
+			{img: 'client/public/images/favicon.ico' ,content:'Racing car sprays burning fuel into crowd.'},
+			{img: 'client/public/images/favicon.ico' ,content:'Racing car sprays burning fuel into crowd.'},
+			{img: 'client/public/images/favicon.ico' ,content:'Racing car sprays burning fuel into crowd.'}
+		]
+	},
+
+]
+;
+let listData = [];
+for (let i = 0; i < 23; i++) {
+  listData.push({
+    href: 'http://ant.design',
+    title: `ant design part ${i}`,
+    avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+    description: 'Ant Design, a design language for background applications, is refined by Ant UED Team.',
+    content: 'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+  });
+}
 export default class App extends Component {
 
 	conponentDidMount() {
@@ -14,28 +56,38 @@ export default class App extends Component {
 	}
 
 	render() {
-		const settings = {
-		     dots: true,
-		     infinite: true,
-		     speed: 500,
-		     slidesToShow: 1,
-		     slidesToScroll: 1,
-		     autoplay:true
-		   };
-		let test = 1;
+		const { Header , Content ,Sider } = Layout;
 		return (
 			<div>
-				<Carousel {...settings} >
-				    <div><h3>1</h3></div>
-				    <div><h3>2</h3></div>
-				    <div><h3>3</h3></div>
-				    <div><h3>4</h3></div>
-				 </Carousel>
-				<Counter caption = "first" />
-				<Counter caption = "second" />
-				<Counter caption = "third" />
-				测试
-				<p>成功</p>
+				<MyCarousel />
+				<Layout className="content-layout">
+			      <Header>
+			      	<MySearch />
+			      </Header>
+			      <Layout>
+			        <Sider width='300'>
+			       		<Mysider.QQContact />
+			        	<Mysider.HotBooks data = {data} />
+			        </Sider>
+			        <Content>
+			        	<div className="contentHeader">
+			        		<div className="title">
+			        			<span>热门书籍</span>
+			        		</div>
+			        		<div className="more">
+			        			<a >查看更多<Icon type="double-right" /></a>
+			        		</div>
+			        	</div>,
+			        	<InfiniteListExample />
+			        	{/*<Counter caption = "first" />
+			        				        	<Counter caption = "second" />
+			        				        	<Counter caption = "third" />
+			        				        	测试
+			        				        	<p>成功</p>*/}
+			        </Content>
+			      </Layout>
+				</Layout>
+				
 			</div>
 		)
 	}

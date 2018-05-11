@@ -28,7 +28,7 @@ export default class CounterComponent extends Component {
 	/*获取store中部分数据用于初始化state*/
 	getOwnState() {
 		return {
-			value: store.getState()[this.props.caption]
+			value: store.getState().count[this.props.caption]
 		};
 	}
 	/*store变化触发监听函数*/

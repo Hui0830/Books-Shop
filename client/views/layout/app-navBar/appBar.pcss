@@ -1,20 +1,39 @@
-.appBar{
-	display: flex;
-	justify-content: space-around;
-	background: rgb(54, 62, 55);
-	text-align: center;
-	box-shadow: rgb(29, 39, 39) 0px 2px 5px;
-	padding: 0;
-	margin: 0;
-	}
+.top_user_info {
+	color: #ccc;
+	float: right;
 
-.navItem{
-	list-style: none;
-	width:20%;
-	line-height: 3.3em;
-	height: 3.3em;
-	letter-spacing: 10px;
-	color: rgb(226, 105, 17);
-	cursor: pointer;
-	box-shadow: 2px 0 0px -1px #5d606f;
+	a {
+		padding: 0 10px
+	}
+}
+.SelectSchool {
+	.ant-modal-header {
+		background-color: #13c2c2;
+		.ant-modal-title {
+			color: #fff
+		}
+	}
+	.ant-modal-close-x {
+		height: 35px;
+    	line-height: 35px;
+	}
+	.ant-tag-cyan:hover {
+		color: #fff;
+		background-color: #13c2c2
+	}
+	.selectAll {
+		margin-bottom: 10px;
+		background: none
+	}
+	.city-container {
+		border: 1px solid #e8e8e8;
+		padding: 10px;
+		margin-bottom: 20px
+	}
+	.school-container {
+		max-height: 200px;
+		overflow-y: scroll;
+		border: 1px solid #e8e8e8;
+    	padding: 10px;
+	}
 }

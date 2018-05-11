@@ -19,8 +19,6 @@ const entryContent = (data) => (
 `import React from 'react';
 import ReactDOM from 'react-dom';
 
-import AppBar from '../client/views/layout/app-navBar';
-import Footer from '../client/views/layout/Footer';
 import Index from '../client/views/${data.path}';
 import AppLayout from '../client/views/layout/Layout';
 	
