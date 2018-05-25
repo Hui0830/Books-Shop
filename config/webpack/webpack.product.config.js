@@ -25,8 +25,8 @@ const extractTextPlugin = require('extract-text-webpack-plugin');
 
 const baseWebpackConfig = require('./webpack.base.config');
 const webpackFiles = require('./webpack.file.config');
-const entry = require('./webpack.entry.config');
-const webpackCom = require('./webpack.com.config');
+// const entry = require('./webpack.entry.config');
+// const webpackCom = require('./webpack.com.config');
 
 let config = merge(baseWebpackConfig, {
 	/*设置生产环境*/
@@ -91,25 +91,21 @@ let config = merge(baseWebpackConfig, {
 });
 
 /*生成html文件*/
-let pages = entry;
-for(let chunkName in pages) {
 	let cof = {
-		filename: chunkName + '.html',
+		filename:  'index.html',
 		template: 'index.html',
 		inject: true,
-		title: webpackCom.titleFun(chunkName, pages[chunkName][1]),
+		title: "校园旧书街",
 		minify: {
 			removeComments: true,
 			collapseWhitespace: true,
 			removeAtrributeQuotes: true
 		},
-		chunks: ['manifest', 'vendor', 'common', chunkName],
+		chunks: ['manifest', 'vendor',],
 		hash: false,
 		chunksSortMode: 'dependency'
 	};
-
 	config.plugins.push(new HtmlWebpackPlugin(cof))
-}
 
 /*清除dist文件夹*/
 config.plugins.push(new cleanWebpackPlugin([webpackFiles.proDirectory],{

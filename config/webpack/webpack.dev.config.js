@@ -6,6 +6,8 @@ const merge = require('webpack-merge');//webpack合并插件
 
 const path = require('path');
 
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 const eslintFormatter = require('react-dev-utils/eslintFormatter');
 
 const baseWebpackConfig = require('./webpack.base.config.js');//引入webpack基础通用配置
@@ -19,13 +21,13 @@ let config = merge(baseWebpackConfig,{
 
 	output: {
 
-		path: path.resolve(webpackFile.devDirectory),
+		path: path.resolve(__dirname,webpackFile.devDirectory),
 
 		filename: 'js/[name].js',
 
 		chunkFilename: 'js/[name].js',
 
-		publicPath: ''
+		publicPath: '/public/'
 	},
 
 	/*
@@ -57,10 +59,14 @@ let config = merge(baseWebpackConfig,{
 			}
 		}
 	},*/
-
+	devtool: '#cheap-module-eval-source-map',
 	plugins: [
+		
+		new HtmlWebpackPlugin({
+			template:path.resolve(__dirname,'../../index.html')
+		}),
 		/*设置热更新*/
-		new webpack.HotModuleReplacementPlugin()
+		new webpack.HotModuleReplacementPlugin(),
 	],
 
 	module: {
@@ -73,7 +79,7 @@ let config = merge(baseWebpackConfig,{
 					],
 				include: [
 					path.resolve(__dirname,'../../client'),
-					path.resolve(__dirname,'../../devBuild'),
+					
 					path.resolve(__dirname,'../../entryBuild')
 				],
 				exclude: [
@@ -140,16 +146,19 @@ let config = merge(baseWebpackConfig,{
 		port: 8080,
 		hot: true,
 		inline: true,
-		contentBase: path.resolve(webpackFile.devDirectory),
-		historyApiFallback: true,
+		contentBase: path.resolve(__dirname,webpackFile.devDirectory),
+		publicPath: '/public/',
+		historyApiFallback:{
+			index:'/public/index.html'
+		},
 		disableHostCheck: true,
-		/*proxy: [
+		proxy: [
 			{
-				context: ['/**'],
+				context: ['/api/*'],
 				target: 'http://randomuser.me',
 				secure: true
 			}
-		],*/
+		],
 		/*打开浏览器并打开本项目网址*/
 		after() {
 			opn('http:localhost:'+this.port)

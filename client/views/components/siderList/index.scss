@@ -1,0 +1,49 @@
+$fontcolor: #8c8c8c;
+$bordercolor: #e2e2e2;
+$hovercolor: #02C7B5;
+@mixin HStyle {
+	padding: 10px 16px;
+	color: $fontcolor;
+  	border-bottom: 1px solid $bordercolor;
+  	font: {
+  		size: 16px;
+  		weight: bold
+  	}
+}
+
+.siderContainer {
+	background: #fff;
+	margin-bottom: 20px;
+	.header {
+		@include HStyle;
+	};
+	.ant-list-bordered {
+		border:none;
+	}
+	.text-overflow {
+		.ant-list-item-content-single{
+			overflow: hidden;
+
+			a {
+				overflow: hidden;
+				text-overflow:ellipsis;
+				white-space: nowrap;
+				display: block;
+				margin-bottom: 0;
+				color: $fontcolor;
+				&:hover {
+					color: $hovercolor
+				}
+				.ant-avatar-square {
+					border-radius: 0;
+					margin-right: 10px
+				}
+			}
+			
+		}
+		
+	}
+	.footer {
+		text-align: right;
+	}
+}

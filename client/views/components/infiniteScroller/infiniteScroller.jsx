@@ -11,61 +11,27 @@ require('./infiniteScroller.scss');
 
 const fakeDataUrl = 'http://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo';
 
-/*-------item底部Icon组件---------*/
-const IconText = ({ type, text }) => (
-  <span className = {type === "pay-circle-o" ? "pirce" : ''}>
-    <Icon type={type} style={{ marginRight: 8 }} />
-    {text}
-  </span>
-);
-/*-----------渲染Item组件--------------*/
-const RenderItem = ({item}) => {
-  return (
-    <List.Item
-        key={item.title}
-        id={item.id === 1 ? `item${item.id}` : null}
-        actions={
-          [
-            <IconText type="star-o" text="156" />, 
-            <IconText type="like-o" text="156" />, 
-            <IconText type="message" text="2" />,
-            <IconText type="pay-circle-o" text="100.00" />,
-            <IconText type="pay-circle" text={<del>200.0</del>} />
-          ]
-        }
-        extra={<img width={272} alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png" />}
-      >
-        <List.Item.Meta
-          avatar={<Avatar src={item.avatar} />}
-          title={<a href={item.href}>{item.title}</a>}
-          description={item.description}
-        />
-        {item.content}
-      </List.Item>
-  )
-  
-}
+
 
 export default class InfiniteListExample extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      data: [],
       loading: false,
       hasMore: true,
-      lenght: 0,
+      length: this.props.listData.length,
     }
 
     this.handleInfiniteOnLoad = this.handleInfiniteOnLoad.bind(this)
   }
   componentDidMount() {
-    const data = this.getArray(6)
+   /* const data = this.props.getArray(6)
       this.setState({
         data: data,
-      });
+      });*/
   }
-  getArray(num) {
+/*  getArray(num) {
     let listData = [];
     for (let i = 0; i < num; i++) {
       listData.push({
@@ -79,14 +45,14 @@ export default class InfiniteListExample extends Component {
      
     }
      return listData
-  }
+  }*/
   /*getData(callback) {
     axios.get(fakeDataUrl).then((res) => {
       callback(res.data)
     })
   }*/
   handleInfiniteOnLoad() {
-    let data = this.state.data;
+    const data = this.props.listData;
     this.setState({
       loading: true,
     });
@@ -99,10 +65,10 @@ export default class InfiniteListExample extends Component {
       return;
     }
     setTimeout(() => {
-      let data1 = this.getArray(6);
-      data = data1.concat(data);
+      let num = this.state.length;
+      console.log(num);
+      this.props.getArray(num,num+6);
       this.setState({
-        data,
         loading: false,
       });
     },2000)
@@ -114,8 +80,16 @@ export default class InfiniteListExample extends Component {
       });
     });*/
   }
+  getChildren() {
+    return React.Children.map(this.props.children,(child) => {
+      if(!child) return;
+      const {listData} = this.props;
+      return React.cloneElement(child, {
+        listData
+      })
+    })
+  }
   render() {
-    let listData =this.state.data;
     return (
       <div className="demo-infinite-container">
         <InfiniteScroll
@@ -125,36 +99,21 @@ export default class InfiniteListExample extends Component {
           hasMore={!this.state.loading && this.state.hasMore}
           useWindow={false}
         >
-          <List
-            key="goodBooks"
-              itemLayout="vertical"
-              size="large"
-              dataSource={listData}
-              footer={null}
-              renderItem={(item) => (
-                <RenderItem item={item} />
-              )}
-            >
-            {/*this.state.loading && this.state.hasMore && (
-              <div className="demo-loading-container">
-                <Spin />
-              </div>
-            )*/}
-            {this.state.hasMore ? 
-              <div className="get_more">
-                { 
-                  this.state.loading ? 
-                    (<Button><Icon type="loading" />加载中....</Button>) : 
-                    (<Button><Icon type="sync" />滚动加载更多....</Button>)
-                }
+          { this.getChildren() }
+          {this.state.hasMore ? 
+            <div className="get_more">
+              { 
+                this.state.loading ? 
+                  (<Button><Icon type="loading" />加载中....</Button>) : 
+                  (<Button><Icon type="sync" />滚动加载更多....</Button>)
+              }
 
-              </div> : 
-              <div className="get_more">
-                  <Button onClick={() => message.warning=("没有更多数据啦....")}><Icon type="sync" />没有更多数据啦....</Button>
-              </div>
+            </div> : 
+            <div className="get_more">
+                <Button onClick={() => message.warning=("没有更多数据啦....")}><Icon type="sync" />没有更多数据啦....</Button>
+            </div>
 
-            }
-          </List>
+          }
         </InfiniteScroll>
       </div>
     );

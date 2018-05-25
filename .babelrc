@@ -1,11 +1,23 @@
 {
-	"presets": ["react","env"],
+	"presets": [
+		"es2015",
+		"react",
+		["env",{
+	      "modules": false,
+	      "targets": {
+	        "browsers": ["ie >=9"]
+	      },
+	      "useBuiltIns": true,
+	      "debug": true
+	    }]
+	 ],
 	"env": {
 		"development": {
 			"presets": ["react-hmre"]
 		}
 	},
 	"plugins": [
-		["import", {"libraryName": "antd", "libraryDirectory": "es", "style": "css"}]
+		["import", {"libraryName": "antd", "libraryDirectory": "es", "style": "css"}],
+		"transform-object-rest-spread"
 	]
 }

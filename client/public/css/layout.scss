@@ -1,0 +1,78 @@
+$blue_color:#01C8B5;
+body {
+}
+/* --------公共类样式----------- */
+ul {
+	padding-left: 10px;
+	margin-bottom: 0
+}
+ul.paddingNone {
+	padding-left: 0;
+	li {
+	list-style: none;
+	}
+}
+.inline_li {
+	display: inline-block;
+	list-style: none;
+	padding: 0 10px
+}
+
+/* 字体 */
+.algin_right {
+	text-align: right;
+}
+.algin_center {
+	text-align: center;
+}
+.text_hidden {
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+.taxt_blue_color {
+	color: $blue_color;
+}
+/* 溢出、清浮动 */
+.overflow_hidden {
+	overflow: hidden;
+}
+
+/*边框*/
+.border_bottom {
+	border-bottom: 1px dashed #dcdcdc;
+}
+.border-left-top {
+	border-left:1px solid #e2e2e2;
+	border-top:1px solid #e2e2e2;
+}
+/*背景*/
+.gray_bgColor {
+	background-color: #f0f2f5;
+}
+.white_bgColor {
+	background-color: #fff;
+}
+/* 内外边距 */
+.padding_all {
+	padding:10px;
+}
+.margin_left {
+	margin-left: 10px;
+}
+.margin_top {
+	margin-top: 10px;
+}
+
+/* 浮动 */
+.float_right {
+	float: right;
+}
+/* 鼠标hover特效 */
+.hover {
+	box-shadow: 0 2px 8px transparent;
+	transition: all 0.2s ease-in-out;
+	&:hover{
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1)
+	}
+}

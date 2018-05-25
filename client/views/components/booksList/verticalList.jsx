@@ -5,16 +5,17 @@ import {
 	Avatar
 } from 'antd'
 
+import BookItem from './bookItem';
 require('./booksList.scss')
 
 
-const IconText = ({ type, text }) => (
-  <span>
-    <Icon type={type} style={{ marginRight: 8 }} />
-    {text}
-  </span>
-);
-
+const Item = ({item}) => {
+	return (
+		<List.Item>
+			<BookItem bookInfo={item} />
+		</List.Item>
+	)
+}
 export default class VerticalList extends Component {
 	constructor(props) {
 		super(props)
@@ -35,41 +36,12 @@ export default class VerticalList extends Component {
 	render() {
 		const {listData} = this.props;
 		return [
-			<div className="contentHeader">
-				<div className="title">
-					<span>热门书籍</span>
-				</div>
-				<div className="more">
-					<a >查看更多<Icon type="double-right" /></a>
-				</div>
-			</div>,
 			<List
 				key="goodBooks"
-			    itemLayout="vertical"
+			    grid={{ gutter: 16, xs: 1, sm: 2, md: 3, lg: 3, xl: 4, xxl: 3 }}
 			    size="large"
-			    pagination={{
-			    onChange:(page) => {
-			        console.log(page);
-			      },
-			      defaultPageSize: 3,
-			      pageSize: 3,
-			    }}
 			    dataSource={listData}
-			    footer={<div><b>ant design</b> footer part</div>}
-			    renderItem={item => (
-			      <List.Item
-			        key={item.title}
-			        actions={[<IconText type="star-o" text="156" />, <IconText type="like-o" text="156" />, <IconText type="message" text="2" />]}
-			        extra={<img width={272} alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png" />}
-			      >
-			        <List.Item.Meta
-			          avatar={<Avatar src={item.avatar} />}
-			          title={<a href={item.href}>{item.title}</a>}
-			          description={item.description}
-			        />
-			        {item.content}
-			      </List.Item>
-			    )}
+			    renderItem={(item) => <Item item={item} />}
 			  />
 		]
 	}

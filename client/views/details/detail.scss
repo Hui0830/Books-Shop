@@ -1,0 +1,109 @@
+/* ---------------用户信息组件样式-------------- */
+$imgSize: 160px;
+$fontColor: #777;
+
+
+
+/* ------------侧边用户区样式--------------- */
+/* .user_container {
+	color: $fontColor;
+	text-align: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 1px 2px 2px #ccc;
+    
+    .user_img img {
+    	height: $imgSize;
+	    width: $imgSize;
+	    border-radius: 80px;
+    }
+
+    .user_nav_info {
+    	margin-top: 20px;
+    	padding: 0;
+    	font-size: 14px;
+    	line-height: 25px;
+    }
+} */
+.siderContainer {
+	box-shadow:0px -2px 2px #ccc;
+}
+
+/* -------------内容区书籍详情组件样式------------- */
+.book_item {
+	padding: 20px;
+	background-color: rgb(255,255,255);
+	word-break: break-all;
+	word-wrap: break-word;
+	color: $fontColor;
+	font-size: 14px;
+	line-height: 2em;
+	.book_pic {
+		float: left;
+		margin: 10px;
+		width: auto;
+		height: 250px;
+		text-align: center;
+	}
+
+	.info {
+		margin-top: 20px;
+		padding: {
+			left: 20px;
+			bottom: 20px;
+		}
+
+		h2 {
+			color: $fontColor;
+			font-weight: bold;
+		}
+
+		.detail {
+			margin: 10px;
+			ul {
+				margin-bottom: 30px;
+
+				.line-through-price {
+					color: #b9b9b9; 
+					padding: 0 20px;
+					text: {
+						decoration: line-through;
+					}
+				}
+			}
+		}
+	}
+
+	.book_introduction_container {
+		clear: both;
+		line-height: 2em;
+		letter-spacing: 2px;
+		text-indent: 2em;
+		padding: 0 10px 20px;
+		margin-bottom: 20px;
+	}
+
+	.book_view_action_container {
+
+		ul.buy_container {
+			li {
+				display: inline-block;
+				padding: 0 10px;
+				cursor: pointer;
+				&:hover {
+					color: #00A89B;
+				}
+			}
+		}
+
+		
+	}
+
+	// 评论区域
+	.comment_container {
+		padding: 20px;
+		.comment_submit {
+			margin: 20px 0 0;
+		} 
+	}
+}

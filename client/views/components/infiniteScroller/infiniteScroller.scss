@@ -7,18 +7,71 @@ $itemHeight: 201;
 	  padding: 0 10px 120px;
 	  height: $itemHeight*6+200px;
 	  max-height: $itemHeight*6+200px;
-	  .ant-list-item-meta-avatar {
-	  	display: inline-block;
-	  }
+	  width: 100%;
+	}
+	/* .ant-list-item-extra-wrap {
+		flex-direction: row-reverse;
+	
+		.ant-list-item-meta-content {
+			padding: 0 20px;
+			.ant-list-item-meta-title {
+				height: 50px;
+				line-height: 50px;
+				border-bottom: 1px dashed #ccc;
+				a {
+					color: #00a89b;
+					&:hover {
+						color:#22d8ca
+					}
+				}
+			}
+		}
+		.ant-list-item-extra{
+			margin: 0 20px;
+		}
+	}
+	.ant-list-vertical  .ant-list-item-meta {
+		margin-bottom: 0;
+	}
+	.ant-list-item-content {
+		position: relative;
+	}
 	  .pirce {
 	  	margin-left: 30px;
 	  	color:#ff5722;
 	  	font: {
 	  		size: 16px;
 	  		weight: bold;
+	  		}
 	  	}
-	  }
-}
+	  	.book_pic {
+	  		max-width: 200px;
+	  		max-height: 250px;
+	  	}
+	  	.man {
+	  		color: blue;
+	  	}
+	  	.woman {
+	  		color: red;
+	  	}
+	  	.book_info_list {
+	  		color: #8c8c8c;
+	  		padding: 10px 40px;
+	  		margin-bottom: 0;
+	  		border-bottom: 1px dashed #ccc;
+	  		li {
+			list-style: none;
+			line-height: 25px;
+	  		}
+	  	}
+	  	.buy_btn {
+	  		position: absolute;
+	  		top:10px;
+	  		right: 20px;
+	
+	  	} */
+
+
 .demo-loading-container {
   position: absolute;
   bottom: 100px;

@@ -5,6 +5,7 @@ import {
 	Col,
 	Divider
 } from 'antd';
+import { Link } from 'react-router-dom';
 
 import SelectSchool from './selectSchool';
 import './appBar.pcss'
@@ -111,14 +112,14 @@ class NarBar extends Component {
             <Col xs={10}>
             	<div className="top_user_info" key="top_user">
             
-		            <a href="/site/login">
+		            <Link to="/login">
 		              <Icon type="user"/>
 		              登录
-		            </a>
+		            </Link>
 		            <Divider type="vertical" />
-		            <a style={{color:"rgb(1,200,181)"}} href="/regist">
+		            <Link style={{color:"rgb(1,200,181)"}} to="/regist">
 		              <Icon type="user-add" />立即注册
-		            </a>               
+		            </Link>               
           		</div>
             </Col>
           </Row>

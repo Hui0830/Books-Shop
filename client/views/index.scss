@@ -22,8 +22,8 @@ $itemHeight: 201;
 		@extend .component;
 		position: relative;
 
-		height: $itemHeight*7.5px;
-		max-height: $itemHeight*7.5px;
+		// height: $itemHeight*7.5px;
+		// max-height: $itemHeight*7.5px;
 		padding: 20px;
 		overflow: hidden;
 		background: #FFF !important;

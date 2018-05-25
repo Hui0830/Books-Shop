@@ -1,0 +1,44 @@
+.booktype_sidebar_div {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	padding:10px;
+	.booktype_item {
+		list-style: none;
+		padding: 5px;
+		cursor:pointer;
+		&:hover{
+			color:#13c2c2;
+		};
+	}
+}
+.book_search {
+	height: 50px;
+    line-height: 50px;
+    padding: 0 10px;
+}
+.books_container {
+
+	.sorter{
+		display: flex;
+		flex-wrap: nowrap;
+		justify-content: space-between;
+	    padding: 10px;
+	    align-items: center;
+	}
+
+}
+
+@media screen and (max-width: 1150px) {
+	.books_container {
+
+		.sorter{
+			display: flex;
+			flex-direction: column;
+			justify-content: space-around;
+		    padding: 10px;
+		    height: 100px;
+		    align-items: flex-start;
+		}
+	}
+}

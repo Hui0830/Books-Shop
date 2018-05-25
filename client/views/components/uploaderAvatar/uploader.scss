@@ -1,0 +1,20 @@
+.up_img {
+	position: relative;
+	top: 0;
+	left: 0;
+	.anticon {
+		position: absolute;
+		top: 0;
+		left: 0;
+		background-color: transparent;
+		color: transparent;
+		font-size: 3em;
+		line-height: 140px;
+		width: 100%;
+		&:hover {
+			background-color: rgba(0,0,0,0.5);
+			color: #fff;
+			font-size: 3em;
+		}
+	}
+}

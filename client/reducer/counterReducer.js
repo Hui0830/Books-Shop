@@ -12,7 +12,7 @@ export default (state, action) => {
 		case ActionTypes.DECREMENT:
 			newState.count[counterCaption] --;
 			 return newState;
-			 default:
-			 	return state
+		default:
+		 	return state
 	}
 }

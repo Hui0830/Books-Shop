@@ -6,9 +6,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack-dev-server  --progress --colors --profile --config config/webpack/webpack.dev.config.js",
-    "createEntry": "node config/entryFiles/entryBuild.js",
-    "createHtml": "node config/webpack/webpack.devBuildHtml.config.js",
-    "devNew": "npm run createEntry && npm run createHtml",
     "proBuild": "SET BABEL_ENV=production && webpack --progress --colors --config config/webpack/webpack.product.config.js",
     "proZip": "npm run proBuild && gulp buildTime zip test pre",
     "server": "node server/server.js"
@@ -19,6 +16,7 @@
   "dependencies": {
     "antd": "^3.4.4",
     "axios": "^0.18.0",
+    "babel-polyfill": "^6.26.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-infinite-scroller": "^1.1.4",
@@ -30,7 +28,9 @@
     "babel-eslint": "^8.2.3",
     "babel-loader": "^7.1.4",
     "babel-plugin-import": "^1.7.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-react-hmre": "^1.1.1",
     "cache-loader": "^1.2.2",
@@ -60,6 +60,7 @@
     "precss": "^3.1.2",
     "prop-types": "^15.6.1",
     "react-dev-utils": "^5.0.1",
+    "react-router-dom": "^4.2.2",
     "rimraf": "^2.6.2",
     "sass-loader": "^7.0.1",
     "style-loader": "^0.21.0",

@@ -1,13 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-import Index from '../client/views//index.jsx';
-import AppLayout from '../client/views/layout/Layout';
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import AppLayout from '../client/views/layout/layout';
+import Router from '../client/config/router';
+import store from '../client/store/Store';
 	
 const root = document.getElementById("root");
 ReactDOM.render(
-	<AppLayout>
-		<Index key='Index' />,
-	</AppLayout>,
+	<BrowserRouter>
+		<Provider store={store} >
+			<AppLayout>
+				<Router key='Index' />,
+			</AppLayout>
+		</Provider>
+	</BrowserRouter>,
 	root
 )

@@ -1,0 +1,36 @@
+/* --------用户设置模块-------- */
+.user_set {
+	padding: 20px;
+	.user_set_list {
+		min-height: 300px;
+		display: flex;
+		flex-direction:column;
+		justify-content:space-between;
+
+		li {
+			word-spacing: 2px;
+			cursor: pointer;
+			&:hover {
+				color: #01C8B5;
+			}
+			.anticon {
+				padding: 0 10px;
+			}
+			.user_profile {
+				border-radius: 50%;
+				max-width: 100px;
+				height: auto;
+			}
+		}
+	}
+
+}
+
+/* --------用户编辑模块--------- */
+.change_container {
+
+	.change_avatar {
+		display: flex;
+		padding: 10px 100px;
+	}
+}

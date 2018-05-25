@@ -1,4 +1,4 @@
-const fs = require("fs");
+/*const fs = require("fs");
 const path = require("path");
 
 const rimraf = require("rimraf")
@@ -18,15 +18,23 @@ fs.mkdirSync(entryBuildPath);
 const entryContent = (data) => (
 `import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
 import Index from '../client/views/${data.path}';
-import AppLayout from '../client/views/layout/Layout';
+import AppLayout from '../client/views/layout/layout';
+import Router from '../client/config/router';
+import store from '../client/store/Store';
 	
 const root = document.getElementById("root");
 ReactDOM.render(
-	<AppLayout>
-		<Index key='Index' />,
-	</AppLayout>,
+	<BrowserRouter>
+		<Provider store={store} >
+			<AppLayout>
+				<Router key='Index' />,
+			</AppLayout>
+		</Provider>
+	</BrowserRouter>,
 	root
 )
 `
@@ -40,3 +48,4 @@ entry.map((data) => {
 		}
 	})
 })
+*/

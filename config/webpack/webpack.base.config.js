@@ -1,18 +1,13 @@
 const path = require('path');
-const entry = require('./webpack.entry.config');
 
 // 入口文件对象
-const newEntry = {};
-for (let name in entry){
-	newEntry[name] = entry[name][0]
-}
 
 let config = {
-	entry: newEntry,
-	/*{
-		'index': path.resolve(__dirname,'../../entryBuild/index'),
-		'product': path.resolve(__dirname,"../../entryBuild/product")
-	}*/
+	
+	entry: {
+		index: path.resolve(__dirname,'../../entryBuild/index.js'),
+		},
+
 	resolve: {
 		extensions: [".js",".json",".jsx"]
 	},
@@ -28,13 +23,13 @@ let config = {
 		splitChunks: {
 			cacheGroups: {
 				//项目公共组件提取
-				common: {
+				/*common: {
 					chunks: "initial",
 					name: "common",
 					minChunks: 2,
 					maxInitialRequests: 5,
 					minSize: 0
-				},
+				},*/
 				//第三方组件提取
 				vendor: {
 					test: /node_modules/,

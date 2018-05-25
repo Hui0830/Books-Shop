@@ -10,7 +10,7 @@ $bordercolor: #e2e2e2;
   	}
 }
 
-.siderContainer {
+/* .siderContainer {
 	background: #fff;
 	margin-bottom: 20px;
 	.header {
@@ -22,10 +22,11 @@ $bordercolor: #e2e2e2;
 	.text-overflow {
 		.ant-list-item-content-single{
 			overflow: hidden;
-			text-overflow:ellipsis;
-			white-space: nowrap;
 
 			a {
+				overflow: hidden;
+				text-overflow:ellipsis;
+				white-space: nowrap;
 				display: block;
 				margin-bottom: 0;
 				color: $fontcolor;
@@ -41,7 +42,7 @@ $bordercolor: #e2e2e2;
 	.footer {
 		text-align: right;
 	}
-}
+} */
 
 .qqContact {
 	@include HStyle;

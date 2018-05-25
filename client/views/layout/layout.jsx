@@ -1,5 +1,6 @@
 import React from 'react';
-import { Layout, Menu, Row, Col,Icon, Spin, Anchor } from 'antd';
+import { Layout, Menu, Row, Col,Icon } from 'antd';
+import { NavLink } from 'react-router-dom';
 
 import AppBar from './app-navBar';
 import ToTop from '../components/toTop/toTop';
@@ -112,18 +113,23 @@ const AppLayout = ({children}) => {
           </Col>
           <Col xs={14}>
             <Menu
+              id="top"
               mode="horizontal"
-              defaultSelectedKeys={['2']}
               style={{ lineHeight: '64px',float: 'right' }}
             >
               <Menu.Item key="1">
-                <Icon type="home" />
-                  首页
+                <NavLink to='/index'>
+                  <Icon type="home" />
+                    首页
+                </NavLink>
               </Menu.Item>
               <Menu.Item key="2">
-                <Icon type="shopping-cart" />
-                  出售
+                <NavLink to='/product'>
+                  <Icon type="shopping-cart" />
+                    出售
+                </NavLink>
               </Menu.Item>
+
               <Menu.Item key="3">
                 <Icon type="shop" />
                   求购
@@ -132,11 +138,11 @@ const AppLayout = ({children}) => {
           </Col>
         </Row>
       </Header>
-      <Content style={{ padding: '0 50px'}}>
-        <div style={{ background: '#fff',minHeight: 380 }}>
+      <Content style={{ padding: '0 50px',marginTop:10}}>
+        <div style={{ background: '#fff',minHeight: 380, overflow: 'hidden' }}>
           { children }
         </div>
-        <ToTop toId="#item1" />
+        <ToTop toId="#top" />
       </Content>
       <Footer style={{ textAlign: 'center' }}>
         Ant Design ©2016 Created by Ant UED

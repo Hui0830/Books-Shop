@@ -1,0 +1,27 @@
+ /* -----------内容头------------- */
+ .nav_header_container {
+ 	display: flex;
+ 	padding-left: 0
+ }
+ .trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color .3s;
+}
+
+ .trigger:hover {
+  color: #1890ff;
+}
+
+ .avatar {
+  height: 64px;
+  line-height: 64px;
+  background: #01c8b5;
+  font-size: 1.2em;
+  color: #fff;
+}
+.bread_crumb {
+  line-height: 64px;
+}
