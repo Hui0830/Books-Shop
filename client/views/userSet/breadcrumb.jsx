@@ -11,7 +11,12 @@ const routes = [{
 }, {
   path: '/userSet/changepwd',
   breadcrumbName: '当前页面'
-}];
+},
+{
+  path: '/userSet/my/sellOrderList',
+  breadcrumbName: '订单处理'
+},
+];
 function itemRender(route, params, routes, paths) {
   const last = routes.indexOf(route) === routes.length - 1;
   console.log(route, params, routes, paths);

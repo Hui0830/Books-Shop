@@ -1,18 +1,31 @@
 import React,{Component} from 'react';
 import { Icon,Button } from 'antd';
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux';
 
-import store from '../../../store/Store';
+
+// import store from '../../../store/Store';
 require('./user.scss');
 
-const userInfo = store.getState().user.userInfo;
+// const userInfo = store.getState().userData[0];
 
-export default class PersonSet extends Component {
-	
+const mapStateToProps = (state,ownProps) => {
+	const { loginReducer } = state;
+	return {
+		...loginReducer
+	}
+}
 
-	constructor(props) {
-		super(props)
+ class PersonSet extends Component {
+	static contextTypes = {
+		router: PropTypes.object
+	}
 
+	constructor() {
+		super(...arguments)
+		// this.state = {
+		// 	userInfo: this.context.store.getState().userData[0]
+		// }
 		this.handleClick = this.handleClick.bind(this)
 	}
 	handleClick() {
@@ -21,7 +34,8 @@ export default class PersonSet extends Component {
 		})
 	}
 	render() {
-		
+		console.log(this.props)
+		const {userInfo} = this.props;
 		return (
 			<div className="user_set overflow_hidden border_l_t">
 		            <ul className="paddingNone user_set_list">
@@ -41,6 +55,4 @@ export default class PersonSet extends Component {
 		)
 	}
 }
-PersonSet.contextTypes = {
-		router: PropTypes.object
-	}
+export default connect(mapStateToProps)(PersonSet)

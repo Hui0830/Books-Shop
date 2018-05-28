@@ -1,17 +1,26 @@
 import React,{Component} from 'react';
+import PropTypes from 'prop-types';
 import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button,Upload,Modal } from 'antd';
-import store from '../../../store/Store';
+import { connect } from 'react-redux';
 
 import UploadAvatar from '../../components/uploaderAvatar/uploader';
 
-const userInfo = store.getState().user.userInfo;
+// const userInfo = store.getState().user.userInfo;
 const FormItem = Form.Item;
 const Option = Select.Option;
 
+const mapStateToProps = (state,ownProps) => {
+	const { loginReducer } = state;
+	return {
+		...loginReducer
+	}
+}
+
 class ChangeFrom extends Component {
-	constructor(props) {
-		super(props)
+	constructor() {
+		super(...arguments)
 		this.state = {
+		  userInfo:this.props.userInfo,
 		  confirmDirty: false,
 		  previewVisible: false,
 	      previewImage: '',
@@ -19,7 +28,7 @@ class ChangeFrom extends Component {
 	        uid: -1,
 	        name: 'xxx.png',
 	        status: 'done',
-	        url: userInfo.avatar,
+	        url: this.props.userInfo.avatar,
 	      }],
 		 }
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -82,6 +91,7 @@ class ChangeFrom extends Component {
 
 	render() {
 		const {getFieldDecorator} = this.props.form;
+		const { userInfo } = this.state;
 		const prefixSelector = getFieldDecorator('prefix', {
 		  initialValue: '86',
 		})(
@@ -216,4 +226,4 @@ class ChangeFrom extends Component {
 	}
 }
 const Changepwd = Form.create()(ChangeFrom);
-export default Changepwd;
+export default connect(mapStateToProps)(Changepwd);

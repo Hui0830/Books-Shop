@@ -6,18 +6,17 @@ import {
 	Divider
 } from 'antd';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import SelectSchool from './selectSchool';
 import './appBar.pcss'
 
-
-/*const navList = [
-	{content: '首页', url: '/home', id: '1'},
-	{content: '详情页', url: '/detail', id: '2'},
-	{content: '更多', url: '/more', id: '3'},
-	{content: '登入', url: '/login', id: '4'},
-	{content: '注册', url: '/out', id: '5'},
-];*/
+const mapStateToProps = (state,ownProps) => {
+	const { loginReducer } = state;
+	return {
+		...loginReducer
+	}
+}
 
 class NarBar extends Component {
 	constructor(props){
@@ -92,7 +91,7 @@ class NarBar extends Component {
 	}
 	render() {
 		const { visible, loading, school } = this.state;
-		const { city } = this.props;
+		const { city, isLogin, userInfo } = this.props;
 		const seleceProps = {
 			visible,
 			loading,
@@ -104,6 +103,7 @@ class NarBar extends Component {
 			selectSchool: this.selectSchool,
 			selectAll: this.selectAll
 		}
+		console.log(isLogin)
 		return (
           <Row type = "flex" justify="center" style={{ height: '30px',lineHeight: '30px', width: '100%',background: 'rgb(51,51,51)' }}>
             <Col xs={10}>
@@ -111,11 +111,22 @@ class NarBar extends Component {
             </Col>
             <Col xs={10}>
             	<div className="top_user_info" key="top_user">
-            
-		            <Link to="/login">
-		              <Icon type="user"/>
-		              登录
-		            </Link>
+            		{
+            			isLogin ? 
+            			(
+            				<Link to={`/userSet/?userId=${userInfo.id}`}>
+	            			  <Icon src={userInfo.avater}/>
+	            			  {userInfo.userName}
+	            			</Link>
+	            		) :
+	            		(
+	            			<Link to="/login">
+	            			  <Icon type="user"/>
+	            			  登录
+	            			</Link>
+	            		)
+            		}
+		            
 		            <Divider type="vertical" />
 		            <Link style={{color:"rgb(1,200,181)"}} to="/regist">
 		              <Icon type="user-add" />立即注册
@@ -127,4 +138,4 @@ class NarBar extends Component {
 	}
 }
 
-export default NarBar;
+export default connect(mapStateToProps)(NarBar);

@@ -155,7 +155,7 @@ let config = merge(baseWebpackConfig,{
 		proxy: [
 			{
 				context: ['/api/*'],
-				target: 'http://randomuser.me',
+				target: 'http://localhost:3333',
 				secure: true
 			}
 		],

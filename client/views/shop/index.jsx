@@ -1,5 +1,6 @@
 import React,{ Component } from 'react';
 import {Layout, Pagination} from 'antd';
+import PropTypes from 'prop-types';
 
 import store from '../../store/Store';
 import SiderList from '../components/siderList';
@@ -12,8 +13,8 @@ require('./shop.scss');
 
 /*-------书籍分类组件-------*/
 const bookType = ["文学艺术","人文社科","经济管理","生活休闲","外语学习","自然科学","考试教育","计算机","医学"];
-const books = store.getState().bookInfo.books;
-const data = [store.getState().goodsilderBooks,store.getState().goodPerson];
+/*const books = store.getState().bookInfo.books;
+const data = [store.getState().goodsilderBooks,store.getState().goodPerson];*/
 
 
 const BookType = ({handleSearch, content}) => {
@@ -41,15 +42,21 @@ const HotBookSider = ({data}) => {
 }
 
 class ProductShow extends Component {
-
-	constructor(props){
-		super(props)
+	static contextTypes = {
+		store: PropTypes.object
+	}
+	constructor(){
+		super(...arguments)
 		this.state = {
-			books: books,
-			listData: books.slice(0,10),
+			books: this.context.store.getState().books,
+			data: [
+			this.context.store.getState().goodsilderBooks,
+			this.context.store.getState().goodPerson
+			],
+			listData: this.context.store.getState().books.slice(0,10),
 			isUp: false,
 			pageSize: 6,
-			total: books.length,
+			total: this.context.store.getState().books.length,
 			current: 1
 		}
 
@@ -90,6 +97,7 @@ class ProductShow extends Component {
 
 	render() {
 		const {Content, Sider} = Layout;
+		const { current,listData,data,books } = this.state;
 		return (
 			<Layout>
 				
@@ -115,7 +123,7 @@ class ProductShow extends Component {
 								<li onClick={() => this.handleSort("price")} className="inline_li"><a href="">售价</a></li>
 							</ul>
 							<Pagination
-								current={this.state.current} 
+								current={current} 
 								hideOnSinglePage={true}
 								total={books.length}
 								pageSize= {6}
@@ -123,12 +131,12 @@ class ProductShow extends Component {
 							/>
 						</div>
 
-						<Books className="white_bgColor" listData={this.state.listData} />
+						<Books className="white_bgColor" listData={listData} />
 						<Pagination
 							className="float_right"
 							hideOnSinglePage={true}
 							total={books.length}
-							current={this.state.current}
+							current={current}
 							pageSize= {6}
 							onChange={ (page,pageSize) => this.handleChange(page,pageSize)}
 						/>

@@ -1,19 +1,28 @@
 import React,{Component} from 'react';
-import { List, Button, Input } from 'antd'
+import { List, Button, Input } from 'antd';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types'
 
-const data = [
-  {
-    title: '个性签名：',
-    content: '是个撒大口径航空还开会开会21好看好(•_•)?21uhkjhukhu1h2kjhku2212hhk2客家话客户客户快结婚客家话客户客户2客家话'
-  },
-];
-export default class Intro extends Component {
-	constructor(props) {
-		super(props)
+// const data = [
+//   {
+//     title: '个性签名：',
+//     content: '是个撒大口径航空还开会开会21好看好(•_•)?21uhkjhukhu1h2kjhku2212hhk2客家话客户客户快结婚客家话客户客户2客家话'
+//   },
+// ];
+const mapStateToProps = (state,ownProps) => {
+	const { loginReducer } = state;
+	return {
+		...loginReducer
+	}
+}
+
+class Intro extends Component {
+	constructor() {
+		super(...arguments)
 
 		this.state = {
 			inputShow: true,
-			content: data[0].content
+			content: [this.props.userInfo]
 		}
 
 		this.handleClick = this.handleClick.bind(this)
@@ -27,6 +36,7 @@ export default class Intro extends Component {
 		})
 	}
 	handleSave() {
+		const {content} = this.state;
 		this.setState({
 			inputShow:true,
 		})
@@ -43,13 +53,13 @@ export default class Intro extends Component {
 			this.state.inputShow?
 			<List
 			    itemLayout="horizontal"
-			    dataSource={data}
+			    dataSource={this.state.content}
 			    
 			    renderItem={item => (
 			      <List.Item actions={[<Button onClick={this.handleClick} type="primary" icon="form">编 辑</Button>]}>
 			        <List.Item.Meta
-			          title={<a href="https://ant.design">{item.title}</a>}
-			          description={this.state.content}
+			          title='个性签名：'
+			          description={item.signature}
 			        />
 			      </List.Item>
 			    )}
@@ -60,7 +70,7 @@ export default class Intro extends Component {
 			  		maxLength={255} 
 			  		autosize={{minRows: 6, maxRows: 12}} 
 			  		placeholder ="个性签名，让他人更加了解你！" 
-			  		value={this.state.content}
+			  		value={this.state.content[0].signature}
 			  		onChange={this.handleChange}
 			  	/>
 			  	<div className="algin_right">
@@ -71,3 +81,5 @@ export default class Intro extends Component {
 		)
 	}
 }
+
+export default connect(mapStateToProps)(Intro)

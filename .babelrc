@@ -1,7 +1,9 @@
 {
 	"presets": [
-		"es2015",
+
+		["es2015",{"loose":true,"modules": false}],
 		"react",
+		"stage-2",
 		["env",{
 	      "modules": false,
 	      "targets": {
@@ -13,11 +15,11 @@
 	 ],
 	"env": {
 		"development": {
-			"presets": ["react-hmre"]
+			"presets": ["stage-2","react-hmre"]
 		}
 	},
 	"plugins": [
 		["import", {"libraryName": "antd", "libraryDirectory": "es", "style": "css"}],
-		"transform-object-rest-spread"
+		
 	]
 }

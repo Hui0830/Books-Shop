@@ -1,0 +1,44 @@
+.address_header {
+	overflow: hidden;
+}
+.add_address {
+	float: right;
+	font-size: 1.2em;
+	font-weight: bold;
+	cursor: pointer;
+	&:hover {
+		color: #ff5400
+	}
+	
+}
+.address_container {
+	position: relative;
+	padding: 20px;
+	border: 1px solid #eaeaea;
+	font-size: 1.2em;
+	transition:all 0.2s ease-in-out;
+	&:hover {
+		// box-shadow: 0 0 4px 0px #dadada;
+		.address_editor {
+			visibility: visible;
+		}
+	}
+	span {
+		padding: 10px;
+	}
+	.address_editor {
+		cursor: pointer;
+		float: right;
+		padding-right: 20px;
+		visibility: hidden;
+		transition:all 0.2s ease-in-out;
+		.address_delete {
+			position: absolute;
+			top: 4px;
+			right: 4px;
+			color: red;
+		}
+	}
+	
+	
+}

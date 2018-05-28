@@ -14,7 +14,7 @@ import Regist from '../views/regist/regist'
 import User from '../views/userInfo/user'
 import UserSet from '../views/userSet'
 
-const data = [
+/*const data = [
   
       {
         path:"/set",
@@ -91,7 +91,7 @@ const data = [
         component: "CommentList",
         content:"留言-动态",
       }
-]
+]*/
 export default () => [
 		<Route path = "/"  exact render = {() => <Redirect to = "/index" />} key = "first" />,
 		<Route path= "/index" component = {Index} key = "list" exact />,

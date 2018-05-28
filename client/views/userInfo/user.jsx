@@ -1,26 +1,31 @@
 import React,{ Component } from 'react';
 import { Link } from 'react-router-dom';
 import {Layout, Pagination, Icon, Tabs, Button} from 'antd';
+import PropTypes from 'prop-types';
 
 import store from '../../store/Store';
 import Books from '../components/vertical/VerticalList';
 import MySearch from '../home/search';
 import UserInfo from '../components/siderUser/user';
 
-const userInfo = store.getState().userData[Math.floor(Math.random(1,10))];
+/*const userInfo = store.getState().userData[Math.floor(Math.random(1,10))];
 const books = store.getState().bookInfo.books;
-const isLogin = store.getState().user.isLogin;
+const isLogin = store.getState().user.isLogin;*/
 
 class ProductShow extends Component {
-
-	constructor(props){
-		super(props)
+	static contextTypes = {
+		store: PropTypes.object
+	}
+	constructor(){
+		super(...arguments)
 		this.state = {
-			books: books,
-			listData: books.slice(0,6),
+			isLogin: this.context.store.getState().isLogin,
+			userInfo: this.context.store.getState().userData[Math.floor(Math.random(1,10))],
+			books: this.context.store.getState().books,
+			listData: this.context.store.getState().slice(0,6),
 			isUp: false,
 			pageSize: 6,
-			total: books.length,
+			total: this.context.store.getState().length,
 			current: 1
 		}
 
@@ -60,7 +65,8 @@ class ProductShow extends Component {
 
 	render() {
 		const {Content, Sider} = Layout;
-		const { TabPane } = Tabs
+		const { TabPane } = Tabs;
+		const { userInfo,isLogin,current,books,listData,isUp } = this.state;
 		return (
 			<Layout>
 				
@@ -88,12 +94,12 @@ class ProductShow extends Component {
     							<div className="sorter border_bottom">
     								<ul>
     									<li  className="inline_li">排序: </li>
-    									<li onClick={() => this.handleSort("id")} className="inline_li"><Icon type={this.state.isUp?"up":"down"} />上架时间</li>
-    									<li onClick={() => this.handleSort("collect")} className="inline_li"><Icon type={this.state.isUp?"up":"down"} />留言数</li>
-    									<li onClick={() => this.handleSort("price")} className="inline_li"><Icon type={this.state.isUp?"up":"down"} />售价</li>
+    									<li onClick={() => this.handleSort("id")} className="inline_li"><Icon type={isUp?"up":"down"} />上架时间</li>
+    									<li onClick={() => this.handleSort("collect")} className="inline_li"><Icon type={isUp?"up":"down"} />留言数</li>
+    									<li onClick={() => this.handleSort("price")} className="inline_li"><Icon type={isUp?"up":"down"} />售价</li>
     								</ul>
     								<Pagination
-    									current={this.state.current} 
+    									current={current} 
     									hideOnSinglePage={true}
     									total={books.length}
     									pageSize= {6}
@@ -102,12 +108,12 @@ class ProductShow extends Component {
     								/>
     							</div>
 
-    							<Books className="white_bgColor" listData={this.state.listData} />
+    							<Books className="white_bgColor" listData={listData} />
     							<Pagination
     								className="float_right"
     								hideOnSinglePage={true}
     								total={books.length}
-    								current={this.state.current}
+    								current={current}
     								pageSize= {6}
     								size="small"
     								onChange={ (page,pageSize) => this.handleChange(page,pageSize)}

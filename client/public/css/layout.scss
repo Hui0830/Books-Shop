@@ -6,7 +6,7 @@ ul {
 	padding-left: 10px;
 	margin-bottom: 0
 }
-ul.paddingNone {
+.paddingNone {
 	padding-left: 0;
 	li {
 	list-style: none;
@@ -33,16 +33,25 @@ ul.paddingNone {
 .taxt_blue_color {
 	color: $blue_color;
 }
+.text_strong {
+	color: red;
+	font-weight: bold;
+}
+
+
 /* 溢出、清浮动 */
 .overflow_hidden {
 	overflow: hidden;
 }
 
 /*边框*/
+.border_all {
+	border:1px solid #f1f1f1;
+}
 .border_bottom {
 	border-bottom: 1px dashed #dcdcdc;
 }
-.border-left-top {
+.border_left_top {
 	border-left:1px solid #e2e2e2;
 	border-top:1px solid #e2e2e2;
 }
@@ -53,9 +62,15 @@ ul.paddingNone {
 .white_bgColor {
 	background-color: #fff;
 }
+.common_bgColor {
+	background-color: rgba(165,165,165,0.12);
+}
 /* 内外边距 */
 .padding_all {
 	padding:10px;
+}
+.margin_all {
+	margin: 10px;
 }
 .margin_left {
 	margin-left: 10px;
@@ -67,6 +82,10 @@ ul.paddingNone {
 /* 浮动 */
 .float_right {
 	float: right;
+}
+/* --阴影效果-- */
+.box_shadow {
+	box-shadow: 0 0 4px 0px #dadada;
 }
 /* 鼠标hover特效 */
 .hover {

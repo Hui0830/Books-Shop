@@ -57,7 +57,7 @@ const data = [
         content:"运费设置",
       },
       {
-        path:"/set/bankAccount",
+        path:"/bankAccount",
         component: BankAccount,
         content:"收款账号",
       }
@@ -155,7 +155,7 @@ const routes = [
         content:"运费设置",
       },
       {
-        path:"/set/bankAccount",
+        path:"/bankAccount",
         component: BankAccount,
         content:"收款账号",
       },
@@ -215,8 +215,8 @@ const Router = ({routes,match}) => {
       ]
 }
 export default class UserSet extends React.Component {
-  constructor(props) {
-    super()
+  constructor() {
+    super(...arguments)
 
     this.state = {
       collapsed: false
@@ -262,7 +262,7 @@ export default class UserSet extends React.Component {
             </Breadcrumb>*/}
             <MyBreadcrumb  />
           </Header>
-          <Content className="border-left-top" style={{ borderTop: '1px solid #e2e2e2', padding: 24, background: '#fff', minHeight: 280 }}>
+          <Content className="border_left_top" style={{ borderTop: '1px solid #e2e2e2', padding: 24, background: '#fff', minHeight: 280 }}>
 
             <Router routes={routes} match={match} />
             

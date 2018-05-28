@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = process.env.API_BASE || 'http://randomuser.me';
+const baseUrl = process.env.API_BASE || 'http://localhost:3333';
 
 
 const parseUrl = (url, params) => {
@@ -10,7 +10,7 @@ const parseUrl = (url, params) => {
 		return result
 	},'')
 
-	return `${baseUrl}/api/${url}?${str.substr(0, str.length-1)}`
+	return `${baseUrl}${url}?${str.substr(0, str.length-1)}`
 }
 
 export const get = (url, params) => {
@@ -27,11 +27,10 @@ export const get = (url, params) => {
 	})
 }
 
-export const post = (url, params, datas) => {
+export const post = (url, datas) => {
 	return new Promise((resolve, reject) => {
 
-		axios.post (parseUrl(url, params), datas)
-
+		axios.post (baseUrl+url, datas)
 			.then(resp => {
 				const data = resp.data;
 				if (data && data.success === true) {

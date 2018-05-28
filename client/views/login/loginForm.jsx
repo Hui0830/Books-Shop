@@ -1,13 +1,38 @@
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types'
+
 
 import { Link } from 'react-router-dom';
+
+import { onLogin } from '../../action/Action.js';
 
 require('./login.scss')
 
 const FormItem = Form.Item;
 
+const mapStateToProps = (state,ownProp) => {
+  console.log(state,ownProp);
+  console.log(...state.loginReducer)
+  const { status } = state.loginReducer;
+  return {
+    status,
+    ...ownProp
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSubmit: (datas) => {
+        dispatch(onLogin(datas))  
+      }
+  }
+}
+
 class Login extends Component {
+  static contextTypes = {
+    router: PropTypes.object
+  }
 	constructor(props){
 		super(props);
 
@@ -18,6 +43,12 @@ class Login extends Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
+        this.props.onSubmit(values);
+        if (this.props.status === 'success') {
+          console.log(this.props.status);
+          this.context.router.history.push('/index')
+        }
+        console.log(this.props.status);
         console.log('Received values of form: ', values);
       }
     });
@@ -64,4 +95,4 @@ class Login extends Component {
 }
 
 const LoginForm = Form.create()(Login);
-export default LoginForm;
+export default connect(mapStateToProps,mapDispatchToProps)(LoginForm)
