@@ -1,0 +1,30 @@
+
+
+
+
+/* ------------侧边用户区样式--------------- */
+.user_container {
+	color: #777;
+	text-align: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 1px 2px 2px #ccc;
+    
+    .user_img img {
+    	height: 160px;
+	    width: 160px;
+	    border-radius: 80px;
+    }
+
+    .user_nav_info {
+    	margin-top: 20px;
+    	padding: 0;
+    	font-size: 14px;
+    	line-height: 25px;
+    }
+}
+
+.user_connect {
+    box-shadow: 1px 2px 2px #ccc;
+    line-height: 2em
+}

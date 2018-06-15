@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import { Icon,Button } from 'antd';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
-
+import {getPageData} from 'actions/Action';
 
 // import store from '../../../store/Store';
 require('./user.scss');
@@ -10,9 +10,10 @@ require('./user.scss');
 // const userInfo = store.getState().userData[0];
 
 const mapStateToProps = (state,ownProps) => {
-	const { loginReducer } = state;
+	console.log(state)
+	const { userInfo } = state.userInfoData;
 	return {
-		...loginReducer
+		userInfo
 	}
 }
 
@@ -28,6 +29,7 @@ const mapStateToProps = (state,ownProps) => {
 		// }
 		this.handleClick = this.handleClick.bind(this)
 	}
+
 	handleClick() {
 		this.context.router.history.push({
 			pathname: '/userSet/changepwd'

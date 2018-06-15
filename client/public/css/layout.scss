@@ -1,6 +1,4 @@
-$blue_color:#01C8B5;
-body {
-}
+
 /* --------公共类样式----------- */
 ul {
 	padding-left: 10px;
@@ -17,6 +15,11 @@ ul {
 	list-style: none;
 	padding: 0 10px
 }
+.inline_li {
+	display: inline-block;
+}
+
+
 
 /* 字体 */
 .algin_right {
@@ -31,11 +34,14 @@ ul {
 	overflow: hidden;
 }
 .taxt_blue_color {
-	color: $blue_color;
+	color:#01C8B5;
 }
 .text_strong {
 	color: red;
 	font-weight: bold;
+}
+.letter_spacing {
+	letter-spacing: 4px;
 }
 
 
@@ -65,9 +71,16 @@ ul {
 .common_bgColor {
 	background-color: rgba(165,165,165,0.12);
 }
+.bg_img {
+	background: url("../images/bg_img01.jpg") no-repeat center center;
+	background-size: cover;
+}
 /* 内外边距 */
 .padding_all {
 	padding:10px;
+}
+.padding_right_left {
+	padding: 0 50px;
 }
 .margin_all {
 	margin: 10px;
@@ -94,4 +107,15 @@ ul {
 	&:hover{
 		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1)
 	}
+}
+/* 鼠标指针 */
+.cursor_pointer {
+	cursor: pointer;
+}
+
+/* 定位 */
+.position_relative {
+	position: relative;
+	top: 0;
+	left:0
 }

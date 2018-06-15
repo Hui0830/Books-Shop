@@ -24,6 +24,7 @@ const Price = ({price, oldPrice}) => {
 const BookItem = ({bookInfo}) => {
 	return (
 		<Card
+			key={bookInfo.bookid}
 		    style={{margin:'10px'}}
 		    hoverable={true}
 		    cover={
@@ -31,13 +32,13 @@ const BookItem = ({bookInfo}) => {
 		    }
 		    actions={
 		    	[
-		    		<IconText title="收藏数" type="star-o" text={bookInfo.collect} />,
-		    		<IconText title="留言数" type="message" text={bookInfo.cart} />
+		    		<IconText title="收藏数" type="star-o" text={bookInfo.collectNum} />,
+		    		<IconText title="留言数" type="message" text={bookInfo.buyNum} />
 		    	]
 		    }
 		  >
 		    <Card.Meta
-		      title={<Link to={`/detail/${bookInfo.id}`}>{bookInfo.name}</Link>}
+		      title={<Link to={`/detail/${bookInfo.bookid}`}>{bookInfo.name}</Link>}
 		      description={<Price price= {bookInfo.price} oldPrice={bookInfo.oldPrice} />}
 		    />
 		  </Card>

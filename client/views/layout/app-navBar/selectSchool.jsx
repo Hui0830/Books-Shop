@@ -7,7 +7,7 @@ import {
 	Tag,
 	List
 } from 'antd'
-import MyModal from '../my-Modal/myModal'
+import Loading from 'components/loading/loading'
 
 const SelectSchool = ({city,school,visible, loading, showModal,handleCancel,selectAll,selectCity,selectSchool}) => {
 	return(
@@ -48,7 +48,7 @@ const SelectSchool = ({city,school,visible, loading, showModal,handleCancel,sele
 		    )}
 		  />
         </Modal>
-        <MyModal loading = {loading} />
+        <Loading loading = {loading} />
       </div>
 	)
 }

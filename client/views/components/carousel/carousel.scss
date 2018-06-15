@@ -1,4 +1,4 @@
-$blueFont: '#03A9F4';
+
 
 @mixin gotoBtn{ 
 		position: absolute;
@@ -38,12 +38,21 @@ $blueFont: '#03A9F4';
 	  text-align: center;
 	  height: 400px;
 	  line-height: 400px;
-	  background: #364d79;
+	  // background: #364d79;
 	  overflow: hidden;
 
 	  h3 {
 	    color: #fff;
 	    z-index:"-1"
+	  }
+	  /* 轮播banner图 */
+	  .banner_01, .banner_03 {
+	  	background: url('../../../public/images/banner01.jpg') no-repeat center center;
+	  	background-size: cover;
+	  }
+	  .banner_02, .banner_04 {
+	  	background: url('../../..//public/images/banner02.jpg') no-repeat center center;
+	  	background-size: cover;
 	  }
 	}
 

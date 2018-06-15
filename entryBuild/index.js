@@ -1,20 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter   } from 'react-router-dom';
+import {  BrowserRouter , HashRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import createBrowserHistory from 'history/createBrowserHistory'
+const history = createBrowserHistory();
 
 import AppLayout from '../client/views/layout/layout';
 import Route from '../client/config/router';
 import store from '../client/store/Store';
 
+let Router = process.env.NODE_ENV !== 'production' ? BrowserRouter : HashRouter;
 const root = document.getElementById("root");
 ReactDOM.render(
-	<BrowserRouter >
+	<Router history={history} >
 		<Provider store={store} >
 			<AppLayout>
-				<Route key='Index' />,
+				<Route key='Index' />
 			</AppLayout>
 		</Provider>
-	</BrowserRouter  >,
+	</Router  >,
 	root
 )

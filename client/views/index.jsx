@@ -4,7 +4,6 @@ import { Carousel, Icon, Layout} from 'antd';
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import Counter from './counter';
 import MyCarousel from './components/carousel';
 //import BooksList from './components/booksList/verticalList';
 import InfiniteListExample from './components/infiniteScroller/infiniteScroller';
@@ -14,24 +13,24 @@ import HomeBooksList from './components/booksList/verticalList';
 import MySearch from './home/search';
 import Mysider from './home/sider';
 
-import '../public/css/layout.scss';
-import './index.scss';
+require('../public/css/layout.scss') ;
+require('./index.scss');
 import bookImg from '../public/images/logo.png';
 
 import { getPageData } from '../action/Action.js';
 
 const mapStateToProps = (state,ownProp) => {
   console.log(state,ownProp)
-  const { asyncReducer } = state;
+  const { asyncReducer,loginInOutReducer } = state;
   return {
+  	...loginInOutReducer,
     ...asyncReducer
   }
 }
 const mapDispatchToProps = (dispatch) => {
 	return {
 		onGetData: (datas,page) => {
-			dispatch(getPageData(datas,page));
-			console.log(dispatch(getPageData(datas,page)))
+			dispatch(getPageData('homePage', datas,page));
 		}
 	}
 }
@@ -46,37 +45,29 @@ class App extends Component {
 	constructor() {
 		super(...arguments)
 
-		/*this.state = {
-			data:[
-			this.props.goodsilderBooks,
-			this.props.goodPerson,
-			],
-			listData: this.props.books.slice(0,12),
-			isVertical: true
-		}*/
-
-		this.getArray = this.getArray.bind(this);
+		// this.getArray = this.getArray.bind(this);
 	}
 
 	componentDidMount() {
 		/*do some thing*/
-		console.log(this.context.store.getState());
-		this.props.onGetData(null,'/index');
+		this.props.onGetData(null,'/product/book/list');
 		
 	}
-	getArray(i,j) {
-		let {listData} = this.state
-		this.setState({
-			listData:listData.concat(this.props.books.slice(i,j))
-		})
-	}
+	// getArray(i,j) {
+	// 	let {listData} = this.state
+	// 	this.setState({
+	// 		listData:listData.concat(this.props.books.slice(i,j))
+	// 	})
+	// }
 	render() {
 		const { Header , Content ,Sider } = Layout;
+		const { newBooks,goodsilderBooks,goodPerson } = this.props;
+		const hotBooks = this.props.data
 		const data = [
-			this.props.goodsilderBooks,
-			this.props.goodPerson,
+			goodsilderBooks,
+			goodPerson,
 		];
-		const listData = this.props.books.slice(0,12);
+		
 		return (
 			<div>
 				<MyCarousel />
@@ -99,7 +90,7 @@ class App extends Component {
 				        			<Link to={`/product?search=hotBooks`} >查看更多<Icon type="double-right" /></Link>
 				        		</div>
 				        	</div>
-				        	<HomeBooksList listData={listData} />
+				        	<HomeBooksList listData={hotBooks} />
 			        	</div>
 			        	<div>
 				        	<div className="contentHeader">
@@ -110,7 +101,7 @@ class App extends Component {
 				        			<Link to={`/product?search=newBooks`} >查看更多<Icon type="double-right" /></Link>
 				        		</div>
 				        	</div>
-				        	<VerticalList  listData={listData} />
+				        	<VerticalList  listData={newBooks} />
 			        	</div>
 
 

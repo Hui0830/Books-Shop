@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 
-require('./index.scss')
+require('./siderList.scss')
 
 /*------热门书籍item项组件--------*/
 const ListItem = ({item, type}) => {
-	const path = type === 'hotBook' ? '/product' : ('/user/'+item.id);
+	const path = type === 'hotBook' ? `/detail/${item.id}` : `/seller/${item.id}`;
 	return (
 		<List.Item className="text-overflow hover">
 		<Link to ={ path} title={ item.name }>

@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 import AppBar from './app-navBar';
 import ToTop from '../components/toTop/toTop';
-require('./layout.pcss');
+require('./layout.scss');
 const logo = require('../../public/images/logo.png');
 
 
@@ -138,14 +138,14 @@ const AppLayout = ({children}) => {
           </Col>
         </Row>
       </Header>
-      <Content style={{ padding: '0 50px',marginTop:10}}>
-        <div style={{ background: '#fff',minHeight: 380, overflow: 'hidden' }}>
+      <Content className="margin_top padding_right_left  layout_content">
+        <div className="white_bgColor">
           { children }
         </div>
         <ToTop toId="#top" />
       </Content>
       <Footer style={{ textAlign: 'center' }}>
-        Ant Design ©2016 Created by Ant UED
+        校园旧书街 ©2018-6-1 Created by 江西农业大学-计算机科学与技术
       </Footer>
     </Layout>
   )

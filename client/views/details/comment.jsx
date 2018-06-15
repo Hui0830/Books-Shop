@@ -18,7 +18,7 @@ import {Link} from 'react-router-dom';
 		         <List.Item className="hover" actions={[<a>edit</a>, <a>more</a>]}>
 		           <List.Item.Meta
 		             avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-		             title={<Link to={`/user/${item.userId}`}>{item.userName}</Link>}
+		             title={<Link to={`/seller/${item.userId}`}>{item.userName}</Link>}
 		             description={`${item.content}Ant Design, a design language for background applications, is refined by Ant UED Team`}
 		           />
 		         </List.Item>

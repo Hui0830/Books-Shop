@@ -9,10 +9,11 @@ import PropTypes from 'prop-types'
 //     content: '是个撒大口径航空还开会开会21好看好(•_•)?21uhkjhukhu1h2kjhku2212hhk2客家话客户客户快结婚客家话客户客户2客家话'
 //   },
 // ];
+
 const mapStateToProps = (state,ownProps) => {
-	const { loginReducer } = state;
+	const { signature } = state.userInfoData.userInfo;
 	return {
-		...loginReducer
+		signature
 	}
 }
 
@@ -22,7 +23,7 @@ class Intro extends Component {
 
 		this.state = {
 			inputShow: true,
-			content: [this.props.userInfo]
+			content: [{signature:this.props.signature}]
 		}
 
 		this.handleClick = this.handleClick.bind(this)

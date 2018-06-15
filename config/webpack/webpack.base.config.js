@@ -8,10 +8,6 @@ let config = {
 		index: path.resolve(__dirname,'../../entryBuild/index.js'),
 		},
 
-	resolve: {
-		extensions: [".js",".json",".jsx"]
-	},
-
 	/*------------提取公共代码-----------*/
 	optimization: {
 		/*--包清单--*/
@@ -31,6 +27,12 @@ let config = {
 					minSize: 0
 				},*/
 				//第三方组件提取
+				styles: {
+				          name: 'styles',
+				          test: /\.scss$/,
+				          chunks: 'all',
+				          enforce: true
+				        },
 				vendor: {
 					test: /node_modules/,
 					chunks: "initial",

@@ -1,4 +1,4 @@
-import { List, message, Avatar, Spin,Icon,Button } from 'antd';
+/*import { List, message, Avatar, Spin,Icon,Button } from 'antd';
 import React, { Component } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 import axios from 'axios';
@@ -25,32 +25,7 @@ export default class InfiniteListExample extends Component {
 
     this.handleInfiniteOnLoad = this.handleInfiniteOnLoad.bind(this)
   }
-  componentDidMount() {
-   /* const data = this.props.getArray(6)
-      this.setState({
-        data: data,
-      });*/
-  }
-/*  getArray(num) {
-    let listData = [];
-    for (let i = 0; i < num; i++) {
-      listData.push({
-        id: i,
-        href: 'http://ant.design',
-        title: `ant design part ${i}`,
-        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-        description: 'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-        content: 'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
-      });
-     
-    }
-     return listData
-  }*/
-  /*getData(callback) {
-    axios.get(fakeDataUrl).then((res) => {
-      callback(res.data)
-    })
-  }*/
+
   handleInfiniteOnLoad() {
     const data = this.props.listData;
     this.setState({
@@ -72,13 +47,6 @@ export default class InfiniteListExample extends Component {
         loading: false,
       });
     },2000)
-    /*this.getData((res) => {
-      data = data.concat(res.results);
-      this.setState({
-        data,
-        loading: false,
-      });
-    });*/
   }
   getChildren() {
     return React.Children.map(this.props.children,(child) => {
@@ -119,3 +87,4 @@ export default class InfiniteListExample extends Component {
     );
   }
 }
+*/

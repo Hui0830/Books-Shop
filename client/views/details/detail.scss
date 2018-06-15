@@ -1,30 +1,5 @@
 /* ---------------用户信息组件样式-------------- */
-$imgSize: 160px;
-$fontColor: #777;
 
-
-
-/* ------------侧边用户区样式--------------- */
-/* .user_container {
-	color: $fontColor;
-	text-align: center;
-    padding: 10px;
-    margin-bottom: 10px;
-    box-shadow: 1px 2px 2px #ccc;
-    
-    .user_img img {
-    	height: $imgSize;
-	    width: $imgSize;
-	    border-radius: 80px;
-    }
-
-    .user_nav_info {
-    	margin-top: 20px;
-    	padding: 0;
-    	font-size: 14px;
-    	line-height: 25px;
-    }
-} */
 .siderContainer {
 	box-shadow:0px -2px 2px #ccc;
 }
@@ -35,7 +10,7 @@ $fontColor: #777;
 	background-color: rgb(255,255,255);
 	word-break: break-all;
 	word-wrap: break-word;
-	color: $fontColor;
+	color: #777;
 	font-size: 14px;
 	line-height: 2em;
 	.book_pic {
@@ -54,7 +29,7 @@ $fontColor: #777;
 		}
 
 		h2 {
-			color: $fontColor;
+			color:#777;
 			font-weight: bold;
 		}
 

@@ -1,51 +1,54 @@
 import React,{Component} from 'react';
+import { connect } from 'react-redux';
 import { Table } from 'antd';
-import axios from 'axios';
+const mapStateToProps = (state,ownProps) => {
+  const { sellerOrder } = state.userInfoData.userInfo;
+  return {
+    sellerOrder
+  }
+}
+
 const columns = [
 {
   title: '订单编号',
-  dataIndex: 'email',
+  dataIndex: 'OrderId',
 },
 {
   title: '买家',
-  dataIndex: 'email',
+  dataIndex: 'name',
 },
 {
   title: '书籍信息',
-  dataIndex: 'email',
-},
-{
-  title: '下单时间',
   dataIndex: 'name',
-  sorter: true,
-  render: name => `${name.first} ${name.last}`,
-}, 
-{
-  title: 'Gender',
-  dataIndex: 'gender',
-  filters: [
-    { text: 'Male', value: 'male' },
-    { text: 'Female', value: 'female' },
-  ],
 }, 
 {
   title: '订单金额',
-  dataIndex: 'email',
+  dataIndex: 'oldPrice',
 },
 {
   title: '卖家确认金额',
-  dataIndex: 'email',
+  dataIndex: 'price',
 },
 {
-  title: '送货方式',
-  dataIndex: 'email',
+  title: '购买数量',
+  dataIndex: 'buyNum',
 },
+{
+  title: '下单时间',
+  dataIndex: 'createTime',
+  sorter: true,
+  render: name => name,
+}, 
 {
   title: '订单状态',
-  dataIndex: 'email',
+  dataIndex: 'status',
+  filters: [
+    { text: '未付款', value: '未付款' },
+    { text: '已完成', value: '已完成' },
+  ],
 }];
 
-export default class SellOrderList extends Component {
+class SellOrderList extends Component {
 	constructor(props) {
 		super(props)
 
@@ -76,23 +79,16 @@ export default class SellOrderList extends Component {
   	fetch(params = {}){
 	    console.log('params:', params);
 	    this.setState({ loading: true });
-	    axios.get('https://randomuser.me/api',
-	    {
-	      params: {
-	      	results: 10,
-	      	...params
-	      }
-	    }).then((res) => {
-	      const pagination = this.state.pagination;
-	      // Read total count from server
-	      //pagination.total = res.data.totalCount;
-	      pagination.total = 200;
-	      this.setState({
-	        loading: false,
-	        data: res.data.results,
-	        ...pagination
-	      });
-	    });
+	    setTimeout(() => {
+	    	const pagination = this.state.pagination;
+	    	pagination.total = 200;
+	    	this.setState({
+	    	  loading: false,
+	    	  data: this.props.sellerOrder,
+	    	  ...pagination
+	    	});	
+	    },1000)
+	      
   	}
   render() {
     return (
@@ -106,3 +102,4 @@ export default class SellOrderList extends Component {
     );
   }
 }
+export default connect(mapStateToProps)(SellOrderList)

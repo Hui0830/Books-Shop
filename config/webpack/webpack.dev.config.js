@@ -29,36 +29,13 @@ let config = merge(baseWebpackConfig,{
 
 		publicPath: '/public/'
 	},
-
-	/*
-	optimization: {
-		
-		runtimeChunk: {
-			name: 'manifest'
-		},
-
-		
-		splitChunks: {
-			cacheGroups: {
-				//项目公共组件提取
-				common: {
-					chunks: "initial",
-					name: "common",
-					minChunks: 2,
-					maxInitialRequests: 5,
-					minSize: 0
-				},
-				//第三方组件提取
-				vendor: {
-					test: /node_modules/,
-					chunks: "initial",
-					name: "vendor",
-					priority: 10,
-					enforce: true
-				}
-			}
+	resolve: {
+		extensions: [".js",".jsx"],
+		alias: {
+			'components': path.resolve(__dirname,'../../client/views/components'),
+			'actions': path.resolve(__dirname,'../../client/action')
 		}
-	},*/
+	},
 	devtool: '#cheap-module-eval-source-map',
 	plugins: [
 		
@@ -157,7 +134,12 @@ let config = merge(baseWebpackConfig,{
 				context: ['/api/*'],
 				target: 'http://localhost:3333',
 				secure: true
-			}
+			},
+			{
+				context: ['/mall/*'],
+				target: 'http://3be1627f.ngrok.io',
+				secure: true
+			},
 		],
 		/*打开浏览器并打开本项目网址*/
 		after() {

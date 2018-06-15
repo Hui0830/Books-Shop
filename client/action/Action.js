@@ -2,53 +2,39 @@ import * as ActionTypes from './ActionTypes';
 
 import {post,get} from '../until/http.js';
 
-export const fetchStart = () => {
+
+export const fetchStart = (prefix) => {
 	return {
-		type: ActionTypes.FETCH_START
+		type: `${prefix}_${ActionTypes.FETCH_START}`
 	}
 };
 
-export const fetchSuccess = (result) => {
+export const fetchSuccess = (prefix,result) => {
 	return {
-		type: ActionTypes.FETCH_SUCCESS,
+		type: `${prefix}_${ActionTypes.FETCH_SUCCESS}`,
 		result
 	}
 };
-export const fetchError = (error) => {
+export const fetchError = (prefix,error) => {
 	return {
-		type: ActionTypes.FETCH_ERROR,
+		type: `${prefix}_${ActionTypes.FETCH_ERROR}`,
 		error
 	}
 }
 
-/*-----异步登录操作------*/
-export const onLogin = (datas) => {
+/*-----异步获取首页信息操作------*/
+export const getPageData = (prefix,datas,pageUrl) => {
 	return (dispatch) => {
-		const apiUrl = '/api/login';
+		const apiUrl = `/mall${pageUrl}`;
 
-		dispatch(fetchStart);
-
-		post(apiUrl,datas).then((res) => {
-			dispatch(fetchSuccess(res));
-		})
-		.then((resp) => {console.log("push")}).catch((error) => {
-			dispatch(fetchError(error));
-		})
-	}
-}
-/*-------異步GET-------*/
-/*-----异步登录操作------*/
-export const getPageData = (datas,pageUrl) => {
-	return (dispatch) => {
-		const apiUrl = `/api${pageUrl}`;
-
-		dispatch(fetchStart);
-
+		dispatch(fetchStart(prefix));
+		
 		get(apiUrl,datas).then((res) => {
-			dispatch(fetchSuccess(res));
+			dispatch(fetchSuccess(prefix,res));
 		})
 		.catch((error) => {
-			dispatch(fetchError(error));
+			dispatch(fetchError(prefix,error));
+			
 		})
 	}
 }

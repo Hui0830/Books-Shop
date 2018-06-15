@@ -1,31 +1,45 @@
 import React,{ Component } from 'react';
 import { Link } from 'react-router-dom';
 import {Layout, Pagination, Icon, Tabs, Button} from 'antd';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import store from '../../store/Store';
-import Books from '../components/vertical/VerticalList';
+import SellerBooks from '../components/vertical/VerticalList';
 import MySearch from '../home/search';
 import UserInfo from '../components/siderUser/user';
+import Loading from 'components/loading/loading';
 
-/*const userInfo = store.getState().userData[Math.floor(Math.random(1,10))];
-const books = store.getState().bookInfo.books;
-const isLogin = store.getState().user.isLogin;*/
+import {getPageData} from '../../action/Action.js';
+import { cookie } from '../../until/cookie.js';
+
+const mapStateToProps = (state,ownProps) => {
+	const { isLogin } = state.loginInOutReducer;
+	const { sellerInfo,sellerBooks,sellerFans,status } = state.sellerData;
+	console.log(state.sellerData)
+	return {
+		isLogin,
+		sellerInfo,
+		sellerBooks,
+		sellerFans,
+		status
+
+	}
+}
 
 class ProductShow extends Component {
 	static contextTypes = {
-		store: PropTypes.object
+		store: PropTypes.object,
+		router: PropTypes.object
 	}
 	constructor(){
 		super(...arguments)
 		this.state = {
-			isLogin: this.context.store.getState().isLogin,
-			userInfo: this.context.store.getState().userData[Math.floor(Math.random(1,10))],
-			books: this.context.store.getState().books,
-			listData: this.context.store.getState().slice(0,6),
+			sellerBooks: this.props.sellerBooks,
+			sellerFans: this.props.sellerFans,
+			listData: this.props.sellerBooks.slice(0,6),
 			isUp: false,
 			pageSize: 6,
-			total: this.context.store.getState().length,
+			total: this.props.sellerBooks.length,
 			current: 1
 		}
 
@@ -33,10 +47,14 @@ class ProductShow extends Component {
 		this.handleSort = this.handleSort.bind(this)
 
 	}
+	componentDidMount() {
+		const sellerId = this.context.router.route.match.params.id;
+		this.context.store.dispatch(getPageData('sellerPage',{sellerId},'/seller'))
+	}
 	/*-------排序事件---------*/
 	handleSort(e,type) {
-		let {isUp, books} = this.state;
-		books.sort((next, prev) => {
+		let {isUp, sellerBooks} = this.state;
+		sellerBooks.sort((next, prev) => {
 			if(isUp) {
 				return prev[type]-next[type]
 			}else {
@@ -44,17 +62,17 @@ class ProductShow extends Component {
 			}
 			
 		})
-		console.log(books);
+		console.log(sellerBooks);
 		this.setState({
-			listData: books,
+			listData: sellerBooks,
 			isUp: !isUp
 		})
 	}
 	/*-------分页事件-------*/
 	handleChange(page,pageSize) {
-		const { books } = this.state;
+		const { sellerBooks } = this.state;
 		this.setState({
-			listData: books.slice(page*6-pageSize,page*pageSize),
+			listData: sellerBooks.slice(page*6-pageSize,page*pageSize),
 			current: page,
 		})
 	}
@@ -66,16 +84,23 @@ class ProductShow extends Component {
 	render() {
 		const {Content, Sider} = Layout;
 		const { TabPane } = Tabs;
-		const { userInfo,isLogin,current,books,listData,isUp } = this.state;
+		const { current,sellerBooks,listData,isUp } = this.state;
+		const { sellerInfo,isLogin } = this.props;
 		return (
+			this.props.status === 'success' ?
 			<Layout>
 				
 				<Sider width={300} className="white_bgColor">
 					<div className="siderContainer" key={`slider`}>
-						<UserInfo userInfo={userInfo} />
+						<UserInfo userInfo={sellerInfo} />
 						{
-							isLogin ?  
-							<Button type="primary" style={{width: '100%'}}>保 存</Button> : 
+							!!(isLogin || cookie.get('userId')) ?  
+							<ul className="padding_all margin_top user_connect ">
+				                <li className="letter_spacing"><Icon type='phone' />电话：</li>
+				                <li className="taxt_blue_color border_bottom">{ sellerInfo.tel }</li>
+				                <li className="letter_spacing"><Icon type='eye-o'/>简介：</li>
+				                <li className="taxt_blue_color">{ sellerInfo.signature }</li>
+				            </ul> : 
 							<Button type="primary" style={{width: '100%'}}><Link to="/login">登录可查看联系方式</Link></Button>
 						}
 					</div>
@@ -101,18 +126,19 @@ class ProductShow extends Component {
     								<Pagination
     									current={current} 
     									hideOnSinglePage={true}
-    									total={books.length}
+    									total={sellerBooks.length}
     									pageSize= {6}
     									size="small"
     									onChange={ (page,pageSize) => this.handleChange(page,pageSize)}
     								/>
-    							</div>
+    							</div> 
 
-    							<Books className="white_bgColor" listData={listData} />
+    							<SellerBooks className="white_bgColor" listData={this.props.sellerBooks} />
+
     							<Pagination
     								className="float_right"
     								hideOnSinglePage={true}
-    								total={books.length}
+    								total={sellerBooks.length}
     								current={current}
     								pageSize= {6}
     								size="small"
@@ -132,7 +158,8 @@ class ProductShow extends Component {
 					
 				</Content>
 			</Layout>
+			: <Loading loading={true} />
 		)
 	}
 }
-export default ProductShow;
+export default connect(mapStateToProps)(ProductShow);

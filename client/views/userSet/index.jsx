@@ -1,23 +1,28 @@
 import { Layout, Menu, Icon, Avatar, Breadcrumb, Badge } from 'antd';
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Route,
-  Switch,
-  BrowserRouter 
+  Switch
 } from "react-router-dom"
+import {getPageData} from 'actions/Action';
 
 require('./userSet.scss');
 import SiderList from './siderList';
 
 import Mysell from './book/Mysell';
 import Mybuy from './book/Mybuy';
+import Warehouse from './book/Warehouse';
+
 import CommentList from './mail/CommentList';
+
 import BankAccount from './shop/BankAccount';
-import MailFee from './shop/MailFee';
 import SellOrderList from './shop/SellOrderList';
+
 import Address from './shoppingCart/Address';
 import OrderList from './shoppingCart/OrderList';
 import ShoppingCart from './shoppingCart/shoppingCart';
+
 import Changepwd from './user/Changepwd';
 import Intro from './user/Intro';
 import PersonSet from './user/Set'
@@ -50,11 +55,6 @@ const data = [
         path:"/my/sellOrderList",
         component: SellOrderList,
         content:"订单处理",
-      },
-      {
-        path:"/mailFee",
-        component: MailFee,
-        content:"运费设置",
       },
       {
         path:"/bankAccount",
@@ -94,8 +94,8 @@ const data = [
         content:"我的出售",
       },
       {
-        path:"/mysell",
-        component: Mysell,
+        path:"/warehouse",
+        component: Warehouse,
         content:"我的仓库",
       },
       {
@@ -149,11 +149,7 @@ const routes = [
         component: SellOrderList,
         content:"订单处理",
       },
-      {
-        path:"/mailFee",
-        component: MailFee,
-        content:"运费设置",
-      },
+      
       {
         path:"/bankAccount",
         component: BankAccount,
@@ -180,8 +176,8 @@ const routes = [
         content:"我的出售",
       },
       {
-        path:"/mysell",
-        component: Mysell,
+        path:"/warehouse",
+        component: Warehouse,
         content:"我的仓库",
       },
       {
@@ -206,6 +202,7 @@ const routes = [
       }
 ]
 const Router = ({routes,match}) => {
+  console.log(match.url)
   return [
          <Route path={match.url} exact component={PersonSet}  />,
           routes.map((route,key) => (
@@ -214,7 +211,12 @@ const Router = ({routes,match}) => {
         
       ]
 }
-export default class UserSet extends React.Component {
+
+class UserSet extends React.Component {
+  static contextTypes = {
+    store: PropTypes.object,
+    router: PropTypes.object
+  }
   constructor() {
     super(...arguments)
 
@@ -224,7 +226,12 @@ export default class UserSet extends React.Component {
 
     this.toggle = this.toggle.bind(this)
   }
-
+  componentWillMount() {
+    const { store, router } = this.context;
+    const userId = 1003
+    console.log(router.route.match);
+    store.dispatch(getPageData('userPage',{userId},'/userSet'))
+  }
   toggle(){
     this.setState({
       collapsed: !this.state.collapsed,
@@ -263,12 +270,11 @@ export default class UserSet extends React.Component {
             <MyBreadcrumb  />
           </Header>
           <Content className="border_left_top" style={{ borderTop: '1px solid #e2e2e2', padding: 24, background: '#fff', minHeight: 280 }}>
-
-            <Router routes={routes} match={match} />
-            
+              <Router routes={routes} match={match} />
           </Content>
         </Layout>
       </Layout>
     );
   }
 }
+export default UserSet

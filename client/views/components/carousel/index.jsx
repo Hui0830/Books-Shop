@@ -24,10 +24,10 @@ export default class MyCarousel extends Component {
 					<Icon type="left" />
 				</div>
 				<Carousel {...settings} >
-				    <div><h3>1</h3></div>
-				    <div><h3>2</h3></div>
-				    <div><h3>3</h3></div>
-				    <div><h3>4</h3></div>
+				    <div><h3 className="banner_01">1</h3></div>
+				    <div><h3 className="banner_02">2</h3></div>
+				    <div><h3 className="banner_03">3</h3></div>
+				    <div><h3 className="banner_04">4</h3></div>
 				 </Carousel>
 				 <div className="next">
 					<Icon type="right" />

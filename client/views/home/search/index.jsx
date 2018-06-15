@@ -4,20 +4,20 @@ import {
 	Row,
 	Col
 } from 'antd'
+import {Link} from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 export default class MySearch extends Component {
+	static contextTypes = {
+		router: PropTypes.object
+	}
 	constructor(props) {
 		super(props)
-
-		this.state = {
-
-		}
-
 		this.searchHandle = this.searchHandle.bind(this)
 	}
 
-	searchHandle() {
-
+	searchHandle(value) {
+		this.context.router.history.push(`/product/?search=${value}`);
 	}
 
 	render() {
@@ -28,18 +28,18 @@ export default class MySearch extends Component {
 					span = {12}
 				>
 					<ul>
-						<li className="inline-li"><label>热搜：</label></li>
-						<li className="inline-li"><a>英语</a></li>
-						<li className="inline-li"><a>计算机</a></li>
-						<li className="inline-li"><a>数学</a></li>
-						<li className="inline-li"><a>法律</a></li>
-						<li className="inline-li"><a>经济 CET4</a></li>
+						<li className="inline_li"><label>热搜：</label></li>
+						<li className="inline_li"><Link to="/product/?search=英语">英语</Link></li>
+						<li className="inline_li"><Link to="/product/?search=计算机">计算机</Link></li>
+						<li className="inline_li"><Link to="/product/?search=数学">数学</Link></li>
+						<li className="inline_li"><Link to="/product/?search=法律">法律</Link></li>
+						<li className="inline_li"><Link to="/product/?search=经济">经济 CET4</Link></li>
 					</ul>
 				</Col>
 				<Col span = {12} >
 					<Search
 				    placeholder="input search text"
-				    onSearch={value => console.log(value)}
+				    onSearch={value => this.searchHandle(value)}
 				    enterButton
 					/>
 				</Col>

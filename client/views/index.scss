@@ -1,6 +1,4 @@
-$fontcolor: #8c8c8c;
-$bordercolor: #e2e2e2;
-$itemHeight: 201;
+
 .component {
 	
 	box-shadow: 0 0px 3px 0px #e4e3e3;
@@ -30,7 +28,7 @@ $itemHeight: 201;
 
 		.contentHeader {
 			overflow: hidden;
-		    border-bottom: 1px solid $bordercolor;
+		    border-bottom: 1px solid #e2e2e2;
 		    .title {
 		    	float: left;
 		    	border-bottom:2px solid #FF9800;
@@ -38,7 +36,7 @@ $itemHeight: 201;
 		    		weight:bold;
 		    		size:20px;
 		    	}
-		    	color: $fontcolor
+		    	color: #8c8c8c
 		    }
 		    .more {
 		    	float: right;

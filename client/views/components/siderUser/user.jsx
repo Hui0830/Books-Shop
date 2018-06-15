@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-require('./user.scss')
+require('./siderUser.scss')
 
 const UserInfo = ({userInfo}) => {
+	console.log(userInfo)
 	return (
 		<div className="user_container overflow_hidden white_bgColor">
 	        <div className="user_img">

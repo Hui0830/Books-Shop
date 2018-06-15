@@ -16,7 +16,7 @@ const BookUser = ({item}) => {
 	return [
 		<Avatar title={item.seller.userName} shape="square" src={item.seller.img}  key="user_avatar"/>,
 		<Divider type="vertical" />,
-		<Link to={`/user/${item.sellId}`}>{item.seller.userName}</Link>,
+		<Link to={`/seller/${item.sellId}`}>{item.seller.userName}</Link>,
 		<Divider type="vertical" />,
 		<Icon className={item.seller.sex === "男" ? "man" : "woman"} type={item.seller.sex === "男" ? "man" : "woman"} />,
 		<Divider type="vertical" />,
@@ -24,7 +24,7 @@ const BookUser = ({item}) => {
 	]
 };
 /*-----------渲染Item组件--------------*/
-const RenderItem = ({item}) => {
+const RenderItem = ({item,handelBuy}) => {
   return (
     <List.Item
     	className="hover"
@@ -50,18 +50,22 @@ const RenderItem = ({item}) => {
         		<li>{`类别：${item.category}`}</li>
         		<li>{ `库存：${item.num}` }</li>
         	</ul>
-        	<Button type="primary" icon="shopping-cart" className="buy_btn">立即购买</Button>
+        	<Button type="primary" icon="shopping-cart" className="buy_btn" onClick={()=>handelBuy(item.id)}>立即购买</Button>
       </List.Item>
   )
   
 }
 export default class InfiniterItem extends React.Component {
-	
+	static contextTypes = {
+		router: PropTypes.object
+	}
 	constructor(props) {
 		super(props)
-
+		this.handelBuy = this.handelBuy.bind(this)
 	}
-
+	handelBuy(bookId){
+		this.context.router.history.push(`/detail/${bookId}`)
+	}
 	render() {
 		const {listData} = this.props;
 		return (
@@ -72,7 +76,7 @@ export default class InfiniterItem extends React.Component {
 			    dataSource={listData}
 			    
 			    renderItem={(item) => (
-			      <RenderItem item={item} />
+			      <RenderItem handelBuy={this.handelBuy} item={item} />
 			    )}
 			  >
 			  {/*this.state.loading && this.state.hasMore && (

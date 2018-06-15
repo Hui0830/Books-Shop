@@ -1,0 +1,64 @@
+.bank_container {
+	.bank_header {
+		margin-bottom: 50px
+	}
+	.steps-content {
+		min-height: 200px;
+		padding: 20px;
+		margin: 20px;
+		.account_type {
+			font-size: 60px;
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
+			height: 200px;
+			margin-bottom: 0;
+			.anticon:hover {
+				color: #01c8b5;
+				box-shadow: 0 0 4px #e2e2e2;
+			}
+			.anticon-alipay {
+				color: #1890FF;
+			}
+			.anticon-wechat {
+				color: green
+			}
+			.anticon-bank {
+				color: red
+			}
+		}
+	}
+	.steps-action {
+		padding: 0 20px;
+	}
+	/* 账户列表 */
+	.account_container {
+		position: relative;
+		padding: 20px;
+		border: 1px solid #eaeaea;
+		font-size: 1.2em;
+		transition:all 0.2s ease-in-out;
+		&:hover {
+			// box-shadow: 0 0 4px 0px #dadada;
+			.account_editor {
+				visibility: visible;
+			}
+		}
+		span {
+			padding: 10px;
+		}
+		.account_editor {
+			cursor: pointer;
+			float: right;
+			padding-right: 20px;
+			visibility: hidden;
+			transition:all 0.2s ease-in-out;
+			.account_delete {
+				position: absolute;
+				top: 4px;
+				right: 4px;
+				color: red;
+			}
+		}
+	}
+}

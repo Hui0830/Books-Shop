@@ -6,5 +6,5 @@ module.exports = {
 
 	resource: "resource",/*静态文件*/
 
-	resourcePrefix: 'resource',/*静态资源前缀*/
+	resourcePrefix: 'public',/*静态资源前缀*/
 };

@@ -10,9 +10,9 @@ const FormItem = Form.Item;
 const Option = Select.Option;
 
 const mapStateToProps = (state,ownProps) => {
-	const { loginReducer } = state;
+	const { avatar } = state.userInfoData.userInfo;
 	return {
-		...loginReducer
+		avatar
 	}
 }
 
@@ -20,7 +20,6 @@ class ChangeFrom extends Component {
 	constructor() {
 		super(...arguments)
 		this.state = {
-		  userInfo:this.props.userInfo,
 		  confirmDirty: false,
 		  previewVisible: false,
 	      previewImage: '',
@@ -28,7 +27,7 @@ class ChangeFrom extends Component {
 	        uid: -1,
 	        name: 'xxx.png',
 	        status: 'done',
-	        url: this.props.userInfo.avatar,
+	        url: this.props.avatar,
 	      }],
 		 }
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -74,24 +73,8 @@ class ChangeFrom extends Component {
 	  callback();
 	}
 	/*-------------------------密码输入验证事件------------end--------------*/
-	/*handleCancel(){
-		this.setState({ previewVisible: false })
-	}
-
-	handlePreview(file){
-	    this.setState({
-	      previewImage: file.url || file.thumbUrl,
-	      previewVisible: true,
-	    });
-	  }
-
-	 handleChange({ fileList }){
-	  	this.setState({ fileList })
-	  }*/
-
 	render() {
 		const {getFieldDecorator} = this.props.form;
-		const { userInfo } = this.state;
 		const prefixSelector = getFieldDecorator('prefix', {
 		  initialValue: '86',
 		})(
@@ -111,7 +94,7 @@ class ChangeFrom extends Component {
 			<div className="change_container">
 				<h3 className="border_bottom taxt_blue_color">基本信息修改</h3>
 				<div className="change_avatar">
-					头像：<UploadAvatar uploadUrl="//jsonplaceholder.typicode.com/posts/" avatar={userInfo.avatar} />
+					头像：<UploadAvatar uploadUrl="//jsonplaceholder.typicode.com/posts/" avatar={this.props.avatar} />
 				</div>
 				<Form onSubmit={this.handleSubmit} style={{margin: "10px auto",padding: "0 100px"}}>
 				 {/*<Upload

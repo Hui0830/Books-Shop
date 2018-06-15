@@ -2,19 +2,55 @@
 const express=require('express')
 const axios =require ('axios')
 const bodyParser = require('body-parser')
+const path = require('path')
+const fs = require('fs')
 /*开启一个监听事件，每次http请求都会触发这个事件*/
-
+/*-----处理图标.icon-----*/
+const favicon = require('serve-favicon')
 const app = express();
-const baseUrl = 'https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo'
+/*开发环境判断*/
+const isDev = process.env.NODE_ENV === 'development'
+/*需要在服务器渲染之前处理图标*/
+app.use(favicon(path.join(__dirname,"../favicon.ico")));
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extend: false}))
+
+if(!isDev){
+	console.log(isDev);
+	
+	app.use('/public',express.static(path.join(__dirname,'../dist')));
+	app.get('/',function(req,res, next){
+		res.set('Content-Type','text/html')
+		fs.readFile(path.join(__dirname,"../resource/index.html"),function(err,data){
+			console.log(data)
+		res.end(data)
+	})
+
+	});
+	
+}
 
 
 
+
+function getUser(data,key,userId) {
+	return data.filter((item,index) => {
+		return item[key] == userId
+	})
+}
+function getBook(data,key,bookId) {
+	return data.filter((item,index) => {
+		return item[key] == bookId
+	})
+}
 /*---------------详细数据-----------------*/
 let books = []; //存储书籍信息数据
 let userData = [];	//存储总用户数据库
 let userCart = []; //个人购物车数据
 let goodPerson = [];
 let goodsilderBooks = [];
+let hotBooks = [];
+let newBooks = [];
 
 /*循环生成数据*/
 for(let i = 1000; i < 1060; i++) {
@@ -37,7 +73,6 @@ for(let i = 1000; i < 1060; i++) {
 		collect: i,
 		createTime: "2018-5-18",
 		cover: 'user',
-		imges: [],
 		num: i,
 		cart:6,
 		news: '七成新',
@@ -56,14 +91,142 @@ for(let i = 1000; i < 1060; i++) {
 		id: i,
 		avatar: 'http://ubookmall.b0.upaiyun.com/user/2017/10/03/7564424992_1507024484.jpg!big',
 		userName: '怀念不能' + i,
-		tel: '15727785909',
-		password: '123456',
+		tel: '1572778'+ i,
+		password: '12'+i,
 		sex: '男',
 		city: '江西',
 		school: '江西农业大学',
 		fan: i - 999 + Math.floor(Math.random()+1),
 		concern: i - 999 + Math.floor(Math.random()+1),
-		signature: '怀念不能' + i + '男,江西农业大学'
+		signature: '怀念不能' + i + '男,江西农业大学',
+		carts: [
+			{
+				id: i,
+				img: "http://ubookmall.b0.upaiyun.com/book/2018/05/17/1426997285_1526538670.jpg" ,
+				name: '快乐上班的经济学'+i,
+				sellId: i,
+				price: (i - 900)/5.00,
+				oldPrice: i - 900,
+				num: i,
+				buyNum: i-1,
+				totalPrice: (i - 900)/5.00*(i-1)
+			},
+			{
+				id: i+1,
+				img: "http://ubookmall.b0.upaiyun.com/book/2018/05/17/1426997285_1526538670.jpg" ,
+				name: '快乐上班的经济学'+i,
+				sellId: i+1,
+				price: (i - 900)/5.00,
+				oldPrice: i - 900,
+				num: i,
+				buyNum: i-1,
+				totalPrice: (i - 900)/5.00*(i-1)
+			},
+		],
+		address: [
+			{	
+				id:i,
+				userName: '李文辉',
+				tel: '15727785909',
+				mailCode:'000000',
+				provinces: '江西',
+				address: '江西省南昌市江西农业大学南区14栋418'
+			},
+			{	
+				id:i+1,
+				userName: '钟兴',
+				tel: '15727785909',
+				mailCode:'000000',
+				provinces: '江西',
+				address: '江西省南昌市江西农业大学南区14栋418，江西省南昌市江西农业大学南区14栋418'
+			}
+		],
+		myOrder:[
+			{
+				bookId: i,
+				img: "http://ubookmall.b0.upaiyun.com/book/2018/05/17/1426997285_1526538670.jpg" ,
+				name: '快乐上班的经济学'+i,
+				OrderId: i,
+				price: (i - 900)/5.00,
+				oldPrice: i - 900,
+				num: i,
+				buyNum: i-1,
+				status: '未付款'
+			},
+			{
+				bookId: i+1,
+				img: "http://ubookmall.b0.upaiyun.com/book/2018/05/17/1426997285_1526538670.jpg" ,
+				name: '快乐上班的经济学'+i,
+				OrderId: i+1,
+				price: (i - 900)/5.00,
+				oldPrice: i - 900,
+				num: i,
+				buyNum: i-1,
+				status: '成功'
+			},
+		],
+		sellerOrder: [
+			{
+				bookId: i,
+				img: "http://ubookmall.b0.upaiyun.com/book/2018/05/17/1426997285_1526538670.jpg" ,
+				name: '快乐上班的经济学'+i,
+				OrderId: i,
+				price: (i - 900)/5.00,
+				oldPrice: i - 900,
+				num: i,
+				buyNum: i-1,
+				status: '未付款',
+				createTime: "2018-5-18",
+			},
+			{
+				bookId: i,
+				img: "http://ubookmall.b0.upaiyun.com/book/2018/05/17/1426997285_1526538670.jpg" ,
+				name: '快乐上班的经济学'+i,
+				OrderId: i,
+				price: (i - 900)/5.00,
+				oldPrice: i - 900,
+				num: i,
+				buyNum: i-1,
+				status: '未付款',
+				createTime: "2018-5-18",
+			},
+		],
+		bankAccount: {
+			type: 'alipay',
+			account: '15727785909',
+			accountName: '怀念不能',
+		},
+		message: {
+			trends: [
+				{
+					userId: i,
+					userName: '怀念不能'+ i,
+					avatar: 'http://ubookmall.b0.upaiyun.com/user/2017/10/03/7564424992_1507024484.jpg!big',
+					content: "不错，尽快发货" 
+				},
+				{
+					userId: i+1,
+					userName: '怀念不能'+ i+1,
+					avatar: 'http://ubookmall.b0.upaiyun.com/user/2017/10/03/7564424992_1507024484.jpg!big',
+					content: "不错，尽快发货不错，尽快发货不错，尽快发货不错，尽快发货不错，尽快发货不错，尽快发货不错，尽快发货不错，尽快发货不错，尽快发货不错，尽快发货不错，尽快发货" 
+				}
+			],
+			seller: [
+				{
+					userId: i,
+					userName: '不能'+ i,
+					avatar: 'http://ubookmall.b0.upaiyun.com/user/2017/10/03/7564424992_1507024484.jpg!big',
+					content: "不错，尽快发货" 
+				},
+				{
+					userId: i+1,
+					userName: '不能'+ i+1,
+					avatar: 'http://ubookmall.b0.upaiyun.com/user/2017/10/03/7564424992_1507024484.jpg!big',
+					content: "不错，尽快发货不错，尽快发货不错，尽快发货不错，尽快发货不错，尽快发货不错，尽快发货不错，尽快发货不错，尽快发货不错，尽快发货不错，尽快发货不错，尽快发货" 
+				}
+			],
+		}
+
 	};
 	books.push(item);
 	userData.push(userItem);
@@ -73,15 +236,35 @@ for(let i = 1000; i < 1060; i++) {
 /*热门个人展示数据*/
 userData.forEach((item,index) => {
 	const { id,img,userName,fan } = item;
-	goodPerson.push({ id,img,name:userName,collect:fan }) 
+	if (index <= 10) {
+		goodPerson.push({ id,img,name:userName,collect:fan }) 
+	}
+	
 })
 /*热门书籍展示数据*/
 
 books.forEach((item,index) => {
 	const {id, img, name, collect } = item;
-	goodsilderBooks.push({ id, img, name, collect });
+	if (index <=10) {
+		goodsilderBooks.push({ id, img, name, collect });
+	}
+	
 })
 /*----------------侧边栏数据----end-----------------*/
+
+/*-----------首页数据----start----------*/
+const homeBooks = books;
+homeBooks.sort((pre,next) => {
+	return pre.collect-next.collect
+});
+homeBooks.forEach((item,index) => {
+	const { img,name,id,collect,price,oldPrice,cart} = item;
+	if (index < 12) {
+		hotBooks.push({ img,name,id,collect,price,oldPrice,cart })
+	}
+})
+
+/*-----------首页数据----end----------*/
 
 
 /*个人购物车数据模拟*/
@@ -91,32 +274,6 @@ books.forEach((item,index) => {
 })
 
 
-const initValues = {
-	/*网络异步状态*/
-	status:'loading',
-	isLogin: false,
-	goodPerson: {
-		type: 'hotPerson',	
-		header: "热门个人",
-		data: goodPerson
-	},
-	goodsilderBooks: {
-		type: "hotBook",	
-		header: "热销书籍",
-		data: goodsilderBooks,
-	},
-	userData, 
-	books,
-	userCart,
-	isLogin: false,
-
-};
-
-
-
-// 对网站首页的访问返回 "Hello World!" 字样
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extend: false}))
 
 app.all('*', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -128,12 +285,15 @@ app.all('*', function(req, res, next) {
 });
 
 app.post('/api/login', function (req, res) {
-	const body = req.body;
-  	if (req.body.userName === '15727785909' && req.body.password === '123456') {
+	const {userName,password} = req.body;
+	console.log(userName,String(password))
+	const user = getUser(userData,'tel',userName)
+	console.log(user)
+  	if (user.length > 0 && user[0].password === password) {
   		res.json({
   			success: true,
-  			userInfo: {
-  				id: 20152213,
+  			userInfo: user[0]
+  				/*id: 20152213,
   				avatar: 'http://ubookmall.b0.upaiyun.com/user/2017/10/03/7564424992_1507024484.jpg!big',
   				userName: '怀念不能',
   				tel: '15727785909',
@@ -142,13 +302,14 @@ app.post('/api/login', function (req, res) {
   				school: '江西农业大学',
   				fan: 4 + Math.floor(Math.random()+1),
   				concern: 2 + Math.floor(Math.random()+1),
-  				signature: '怀念不能/男,江西农业大学'
-  			}
+  				signature: '怀念不能/男,江西农业大学'*/
+  			
   		})
   	} else {
+  		res.status(403)
   		res.json({
   			success:false,
-  			body,
+  			
   			data: 'error'
   		})
   	}
@@ -166,20 +327,61 @@ app.get('/api/index',function(req,res) {
 			header: "热销书籍",
 			data: goodsilderBooks,
 		},
-		userData, 
-		books,
+		hotBooks,
+		newBooks:books.slice(0,12),
 	})
 })
 
 // /user 节点接受 PUT 请求
-app.put('/user', function (req, res) {
-  res.send('Got a PUT request at /user');
+app.get('/api/detail', function (req, res) {
+  const bookId = req.query.bookId;
+  console.log(bookId);
+  const book = getBook(books,'id',bookId)[0];
+  const userInfo = getUser(userData,'id',book.sellId)[0];
+  res.json({
+		success:true,
+		userInfo,
+		book,
+	})
+});
+
+// seller卖家信息返回
+app.get('/api/seller', function (req, res) {
+  	  const sellerId = req.query.sellerId;
+	  console.log(sellerId);
+	  const sellerInfo = getUser(userData,'id',sellerId)[0];
+	  const sellerBooks = getBook(books,'sellId',sellerId);
+	 
+	  res.json({
+			success:true,
+			sellerInfo,
+			sellerBooks,
+		})
 });
 
 // /user 节点接受 DELETE 请求
-app.delete('/user', function (req, res) {
-  res.send('Got a DELETE request at /user');
+app.get('/api/product', function (req, res) {
+  	res.json({
+  		success:true,
+  		books,
+  	})
 });
+// 用户主页信息请求
+app.get('/api/userSet',function(req,res) {
+	const userId = req.query.userId;
+	const userInfo = getUser(userData,'id',userId)[0];
+	const sellerBooks = getBook(books,'sellId',userId);
+	console.log(sellerBooks)
+	res.json({
+		userInfo,
+		sellerBooks,
+		myWarehouse: sellerBooks
+	})
+})
+
+
+
 app.listen(3333,function(){
 	console.log("server is listening in 3333")
 });
+

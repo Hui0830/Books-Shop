@@ -13,6 +13,7 @@ const IconText = ({ type, text }) => (
 );
 
 const BookInfo = ({bookInfo}) => {
+	console.log(bookInfo)
 	return (
 		<div className="book_item overflow_hidden">
 			{/*-------------书籍图片--------------*/}

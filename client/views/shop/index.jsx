@@ -1,8 +1,9 @@
 import React,{ Component } from 'react';
 import {Layout, Pagination} from 'antd';
 import PropTypes from 'prop-types';
+import {connect } from 'react-redux';
 
-import store from '../../store/Store';
+
 import SiderList from '../components/siderList';
 import Books from '../components/vertical/VerticalList';
 import MySearch from '../home/search';
@@ -11,10 +12,20 @@ import MySearch from '../home/search';
 
 require('./shop.scss');
 
+
+function mapStateToProps(state,ownProps) {
+	const { goodsilderBooks, goodPerson } = state.asyncReducer;
+	const { status, books } = state.productData;
+	return {
+		status,
+		data:[goodsilderBooks,goodPerson],
+		books,
+
+	}
+}
+
 /*-------书籍分类组件-------*/
 const bookType = ["文学艺术","人文社科","经济管理","生活休闲","外语学习","自然科学","考试教育","计算机","医学"];
-/*const books = store.getState().bookInfo.books;
-const data = [store.getState().goodsilderBooks,store.getState().goodPerson];*/
 
 
 const BookType = ({handleSearch, content}) => {
@@ -42,21 +53,18 @@ const HotBookSider = ({data}) => {
 }
 
 class ProductShow extends Component {
-	static contextTypes = {
+	/*static contextTypes = {
 		store: PropTypes.object
-	}
+	}*/
 	constructor(){
 		super(...arguments)
 		this.state = {
-			books: this.context.store.getState().books,
-			data: [
-			this.context.store.getState().goodsilderBooks,
-			this.context.store.getState().goodPerson
-			],
-			listData: this.context.store.getState().books.slice(0,10),
+			books: this.props.books,
+			data: this.props.data,
+			listData: this.props.books.slice(0,10),
 			isUp: false,
 			pageSize: 6,
-			total: this.context.store.getState().books.length,
+			total: this.props.books.length,
 			current: 1
 		}
 
@@ -101,7 +109,7 @@ class ProductShow extends Component {
 		return (
 			<Layout>
 				
-				<Sider width={300}>
+				<Sider width={300} className="white_bgColor">
 					<div className="siderContainer" key={`slider`}>
 						<BookType handleSearch={this.handleSearch} content={bookType} />
 						<HotBookSider data={data} />
@@ -142,14 +150,9 @@ class ProductShow extends Component {
 						/>
 
 					</div>
-						
-
-					
-					
-					
 				</Content>
 			</Layout>
 		)
 	}
 }
-export default ProductShow;
+export default connect(mapStateToProps)(ProductShow);

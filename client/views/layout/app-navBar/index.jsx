@@ -7,14 +7,27 @@ import {
 } from 'antd';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import {cookie} from '../../../until/cookie.js';
+import {login_out} from 'actions/loginAction.js';
 
 import SelectSchool from './selectSchool';
-import './appBar.pcss'
+import './appBar.scss'
 
 const mapStateToProps = (state,ownProps) => {
-	const { loginReducer } = state;
+	const { loginInOutReducer } = state;
+	console.log(loginInOutReducer)
 	return {
-		...loginReducer
+		...loginInOutReducer
+	}
+}
+const mapDispatchToProps = (dispatch) => {
+	return {
+		loginOut: () => {
+			cookie.del('userId');
+			dispatch(login_out());
+			console.log("del");
+			console.log(this.props.isLogin)
+		}
 	}
 }
 
@@ -91,7 +104,7 @@ class NarBar extends Component {
 	}
 	render() {
 		const { visible, loading, school } = this.state;
-		const { city, isLogin, userInfo } = this.props;
+		const { city, isLogin, userInfo,loginOut } = this.props;
 		const seleceProps = {
 			visible,
 			loading,
@@ -112,25 +125,37 @@ class NarBar extends Component {
             <Col xs={10}>
             	<div className="top_user_info" key="top_user">
             		{
-            			isLogin ? 
+            			!!(isLogin || cookie.get('userId'))? 
             			(
+            				<div>
             				<Link to={`/userSet/?userId=${userInfo.id}`}>
-	            			  <Icon src={userInfo.avater}/>
-	            			  {userInfo.userName}
+	            			  <Icon type="user"/>
+	            			  {userInfo.username}
 	            			</Link>
+	            			<Divider type="vertical" />
+	            			<Link to={`/userSet/shoppingCart/?userId=${userInfo.id || cookie.get('userId')}`}>
+	            			  <Icon type="shopping-cart"/>
+	            			  我的购物车
+	            			</Link>
+	            			<Divider type="vertical" />
+	            			<a className="taxt_blue_color cursor_pointer" href="/login" onClick={() => loginOut()}>
+	            			  <Icon type="logout" />退出登入
+	            			</a>
+	            			</div>
 	            		) :
 	            		(
+	            			<div>
 	            			<Link to="/login">
-	            			  <Icon type="user"/>
+	            			  <Icon type="login"/>
 	            			  登录
 	            			</Link>
+	            			<Divider type="vertical" />
+	            			<Link className="taxt_blue_color" to="/regist">
+	            			  <Icon type="user-add" />立即注册
+	            			</Link>
+	            			</div>
 	            		)
-            		}
-		            
-		            <Divider type="vertical" />
-		            <Link style={{color:"rgb(1,200,181)"}} to="/regist">
-		              <Icon type="user-add" />立即注册
-		            </Link>               
+            		}              
           		</div>
             </Col>
           </Row>
@@ -138,4 +163,4 @@ class NarBar extends Component {
 	}
 }
 
-export default connect(mapStateToProps)(NarBar);
+export default connect(mapStateToProps,mapDispatchToProps)(NarBar);

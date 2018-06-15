@@ -1,12 +1,14 @@
 import React from 'react';
-import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, } from 'antd';
+
+import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, Radio} from 'antd';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
+const RadioButton = Radio.Button;
+const RadioGroup = Radio.Group;
 
 
-
-const RegistFrom = ({form, handleSubmit, validateToNextPassword, residences, compareToFirstPassword, handleConfirmBlur}) => {
+const RegistFrom = ({form,loading, handleSubmit, validateToNextPassword, residences, compareToFirstPassword, handleConfirmBlur}) => {
 	const { getFieldDecorator } = form;
 
 	const prefixSelector = getFieldDecorator('prefix', {
@@ -20,22 +22,43 @@ const RegistFrom = ({form, handleSubmit, validateToNextPassword, residences, com
 
 	return (
 		<Form onSubmit={handleSubmit} style={{margin: "10px auto",padding: "0 100px"}}>
-		  {/*---------------邮箱--------------------*/}
+		  {/*---------------手机号码--------------------*/}
 		  <FormItem
-		    label="注册邮箱"
+		    label="手机号码"
 		    hasFeedback
 		  >
 		    {
-		    	getFieldDecorator('email', {
-			      rules: [
-				      {
-				        type: 'email', message: '请输入正确的邮箱地址!',
-				      }, 
-				      {
-				        required: true, message: '请输入你的邮箱!',
-				      }
-			      ],
-		    	})(<Input  prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} />)
+		    	getFieldDecorator('tel', {
+		      		rules: [
+		      			{ required: true, message: '请输入正确的手机号码!',pattern:/^[1][3,4,5,7,8][0-9]{9}$/ }
+		      		],
+		    	})(
+		    		<Input 
+		    			addonBefore={prefixSelector} 
+		    			prefix={<Icon type="phone" style={{ color: 'rgba(0,0,0,.25)' }} />}
+		    			style={{ width: '100%' }} 
+		    		/>
+		    	)
+		    }
+		  </FormItem>
+		  {/*---------------昵称--------------------*/}
+		  <FormItem
+		  	hasFeedback
+		    label={(
+		      <span>
+		        昵称
+		        <Tooltip title="您的用户名?">
+		          <Icon type="question-circle-o" />
+		        </Tooltip>
+		      </span>
+		    )}
+		  >
+		    {
+		    	getFieldDecorator('username', {
+		      		rules: [
+		      			{ required: true, message: '记得给自己取个名字哦!', whitespace: true }
+		      		],
+		    	})( <Input prefix={<Icon type="idcard" style={{ color: 'rgba(0,0,0,.25)' }} />} />)
 		    }
 		  </FormItem>
 		{/*---------------密码--------------------*/}
@@ -47,7 +70,7 @@ const RegistFrom = ({form, handleSubmit, validateToNextPassword, residences, com
 		    	getFieldDecorator('password', {
 		      		rules: [
 			      		{
-			        		required: true, message: '密码不能为空!',
+			        		required: true, message: '密码必须为6~20位的非中文字符哦!',min:6,max:20
 			      		}, 
 			      		{
 			        		validator: validateToNextPassword,
@@ -62,7 +85,7 @@ const RegistFrom = ({form, handleSubmit, validateToNextPassword, residences, com
 		    hasFeedback
 		  >
 		    {
-		    	getFieldDecorator('confirm', {
+		    	getFieldDecorator('password2', {
 			      rules: [
 				      {
 				        required: true, message: '请再次输入密码!',
@@ -74,59 +97,41 @@ const RegistFrom = ({form, handleSubmit, validateToNextPassword, residences, com
 		    	})(<Input type="password" onBlur={handleConfirmBlur} prefix={<Icon type="key" style={{ color: 'rgba(0,0,0,.25)' }} />} />)
 		    }
 		  </FormItem>
-		{/*---------------昵称--------------------*/}
-		  <FormItem
-		  	hasFeedback
-		    label={(
-		      <span>
-		        昵称
-		        <Tooltip title="What do you want others to call you?">
-		          <Icon type="question-circle-o" />
-		        </Tooltip>
-		      </span>
-		    )}
-		  >
-		    {
-		    	getFieldDecorator('nickname', {
-		      		rules: [
-		      			{ required: true, message: 'Please input your nickname!', whitespace: true }
-		      		],
-		    	})( <Input prefix={<Icon type="idcard" style={{ color: 'rgba(0,0,0,.25)' }} />} />)
-		    }
-		  </FormItem>
+		
 		{/*---------------学校选择--------------------*/}
 		  <FormItem
 		    label="学校"
 		    hasFeedback
 		  >
 		    {
-		    	getFieldDecorator('residence', {
-		      		initialValue: ['zhejiang', 'hangzhou', 'xihu'],
+		    	getFieldDecorator('school', {
+		      		initialValue: ['江西', '江西农业大学'],
 		      		rules: [
-		      			{ type: 'array', required: true, message: 'Please select your habitual residence!' }
+		      			{ type: 'array', required: true, message: '告诉大家你在哪里哦!' }
 		      		],
 		    	})(<Cascader options={residences} />)
 		    }
 		  </FormItem>
-		{/*---------------手机号码--------------------*/}
-		  <FormItem
-		    label="手机号码"
-		    hasFeedback
-		  >
-		    {
-		    	getFieldDecorator('phone', {
-		      		rules: [
-		      			{ required: true, message: 'Please input your phone number!' }
-		      		],
-		    	})(
-		    		<Input 
-		    			addonBefore={prefixSelector} 
-		    			prefix={<Icon type="phone" style={{ color: 'rgba(0,0,0,.25)' }} />}
-		    			style={{ width: '100%' }} 
-		    		/>
-		    	)
-		    }
-		  </FormItem>
+		{/*-------------性别--------------*/}
+			<FormItem
+	          label="性别"
+	          labelCol={ {span:4} }
+	          wrapperCol={ {span:20} }
+	          style={{textAlgin:'left'}}
+	        >
+	          {getFieldDecorator('sex',{
+	          	      rules: [
+	          		      {
+	          		        required: true, message: '确认你的性别哦!',
+	          		      }
+	          	      ],
+	          })(
+	            <RadioGroup>
+	              <Radio value="man">男</Radio>
+	              <Radio value="woman">女</Radio>
+	            </RadioGroup>
+	          )}
+			</FormItem>
 
 		  <FormItem >
 		    {getFieldDecorator('agreement', {
@@ -137,7 +142,7 @@ const RegistFrom = ({form, handleSubmit, validateToNextPassword, residences, com
 		  </FormItem>
 
 		  <FormItem >
-		    <Button type="primary" htmlType="submit" style={{width: '100%'}}>Register</Button>
+		    <Button loading={loading} type="primary" htmlType="submit" style={{width: '100%'}}>注册</Button>
 		  </FormItem>
 
 		</Form>

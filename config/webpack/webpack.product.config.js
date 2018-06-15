@@ -19,14 +19,21 @@ const copyWebpackPlugin = require('copy-webpack-plugin');
 
 // optimizeCssPlugin CSS文件压缩插件
 const optimizeCssPlugin = require('optimize-css-assets-webpack-plugin');
-
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 // css 代码提取到独立.css文件
-const extractTextPlugin = require('extract-text-webpack-plugin');
+// const extractTextPlugin = require('extract-text-webpack-plugin');
 
 const baseWebpackConfig = require('./webpack.base.config');
 const webpackFiles = require('./webpack.file.config');
-// const entry = require('./webpack.entry.config');
-// const webpackCom = require('./webpack.com.config');
+
+// const extractCSS = new MiniCssExtractPlugin({
+//       filename: "css/[name].[md5:contenthash:hex:8].css'",
+//       chunkFilename: '[id].[name].[md5:contenthash:hex:8].css'
+//     })
+const extractSCSS = new MiniCssExtractPlugin({
+			filename: 'css/[name].[md5:contenthash:hex:8].css',
+			chunkFilename: 'css/[id].css'
+		});
 
 let config = merge(baseWebpackConfig, {
 	/*设置生产环境*/
@@ -34,25 +41,31 @@ let config = merge(baseWebpackConfig, {
 
 	output: {
 		path: path.resolve(webpackFiles.proDirectory),
+		publicPath: '/'+webpackFiles.resourcePrefix + '/',
 		filename: "js/[name].[chunkhash:8].js",
 		chunkFilename: "js/[name]-[id].[chunkhash:8].js",
 	},
-
+	resolve: {
+		extensions: [".js",".jsx"],
+		alias: {
+			'redux': path.resolve(__dirname,'../../node_modules/redux/dist/redux.min.js'),
+			'react-redux': path.resolve(__dirname,'../../node_modules/react-redux/dist/react-redux.min.js'),
+			'react': path.resolve(__dirname,'../../node_modules/react/cjs/react.production.min.js'),
+			'components': path.resolve(__dirname,'../../client/views/components'),
+			'actions': path.resolve(__dirname,'../../client/action')
+		}
+	},
 	plugins: [
 		// 提取CSS文件
-		new extractTextPlugin('css/[name].[md5:contenthash:hex:8].css'),
+		// extractCSS,
+		extractSCSS,
 
 		// css文件压缩
 		new optimizeCssPlugin({
 			assetNameRegExp: /\.css$/g,
-			cssProcessor: require('cssnano'),
-			cssProcessorOptions: {
-				discardComments: {
-					removeAll: true
-				},
-				safe: true
-			},
-			canPrint: true
+	        cssProcessor: require('cssnano'),
+	        cssProcessorOptions: { discardComments: { removeAll: true } },
+	        canPrint: true
 		}),
 	],
 
@@ -63,19 +76,23 @@ let config = merge(baseWebpackConfig, {
 				use: [
 					'babel-loader',
 				],
+				exclude: path.resolve(__dirname,' ../../node_modules'),
 			},
 			{
-				test: /\.(js|jsx)$/,
-				loader: 'babel-loader',
-				exclude: '/node_modules/',
+			    test: /\.scss$/,
+			    use: [
+			    	MiniCssExtractPlugin.loader,
+			    	'css-loader',
+			    	'sass-loader',
+			    ],
 			},
 			{
-				test: /\.(css|pcss)$/,
-				use: extractTextPlugin.extract({
-					fallback: "style-loader",
-					use: "css-loader!postcss-loader!sass-loaderS"
-				}),
-				include:path.join(__dirname, '/node_modules/antd'),
+				test: /\.css$/,
+				use: [MiniCssExtractPlugin.loader,'css-loader'],
+				include:[
+					path.resolve(__dirname,' ../../client'),
+					path.join(__dirname, '../../node_modules/antd')
+				]
 			},
 			{
 				test: /\.(png|jpg|jpeg|png|gif|woff|svg|eot|ttf)/,
@@ -84,7 +101,7 @@ let config = merge(baseWebpackConfig, {
 			{
 				test: /\.swf$/,
 				loader: 'file?name=js/[name].[ext]'
-			}
+			},
 		]
 	}
 
@@ -101,7 +118,7 @@ let config = merge(baseWebpackConfig, {
 			collapseWhitespace: true,
 			removeAtrributeQuotes: true
 		},
-		chunks: ['manifest', 'vendor',],
+		chunks: ['manifest', 'vendor','index'],
 		hash: false,
 		chunksSortMode: 'dependency'
 	};

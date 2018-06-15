@@ -13,7 +13,7 @@
 }
 .address_container {
 	position: relative;
-	padding: 20px;
+	padding: 20px 6px;
 	border: 1px solid #eaeaea;
 	font-size: 1.2em;
 	transition:all 0.2s ease-in-out;
@@ -38,6 +38,9 @@
 			right: 4px;
 			color: red;
 		}
+	}
+	.address_item {
+
 	}
 	
 	
