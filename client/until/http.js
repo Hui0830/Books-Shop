@@ -1,11 +1,11 @@
 import axios from 'axios'
 import { login_in,login_out } from '../action/loginAction.js';
-import {fetchStart,fetchSuccess,fetchError} from '../action/action.js';
+import {fetchStart,fetchSuccess,fetchError} from '../action/Action.js';
 import store from '../store/Store.js';
-import {cookie} from './cookie.js';
+import { cookie } from './cookie.js';
 
 
-const baseUrl = process.env.API_BASE || 'http://3be1627f.ngrok.io';
+const baseUrl = process.env.API_BASE || 'http://localhost:8081';
 
 
 const parseUrl = (url, params) => {

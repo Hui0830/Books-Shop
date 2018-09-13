@@ -26,7 +26,7 @@ export default class Login extends Component {
 	    	this.setState({
 	    		loading:true
 	    	})
-		    loginPost('/mall/user/user/login',JSON.parse(JSON.stringify({...values})))
+		    loginPost('/api/user/login',JSON.parse(JSON.stringify({...values})))
 		    .then(res => {
 		    	this.setState({
 		    		loading:false

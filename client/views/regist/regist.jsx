@@ -76,7 +76,7 @@ class RegistContainer extends Component {
 	    	})
 	    	console.log(JSON.stringify({city,school,...values}));
 
-	    	post('/mall/user/user/register',JSON.parse(JSON.stringify({city,school,...values})))
+	    	post('/api/user/register',JSON.parse(JSON.stringify({city,school,...values})))
 	    	.then((res) => {
 	    		this.setState({
 	    			loading:false
