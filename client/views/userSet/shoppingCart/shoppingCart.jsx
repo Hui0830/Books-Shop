@@ -88,7 +88,6 @@ class OrderList extends Component {
 	    this.setState({ loading: true });
 	    const data = this.state.data
 	    // ajax request after empty completing
-	    console.log(this.state.selectedRows)
 	    setTimeout(() => {
 	      this.setState({
 	        selectedRows: [],
@@ -98,7 +97,6 @@ class OrderList extends Component {
 	}
 
 	onSelectChange(selectedRowKeys,selectedRows) {
-		console.log('selectedRowKeys changed: ', selectedRowKeys,selectedRows);
 	    this.setState({ selectedRowKeys,selectedRows });
 	    this.addprice(selectedRows)
 	}
@@ -117,7 +115,6 @@ class OrderList extends Component {
 		let  beforeTotalPrice = 0,afterTotalPrice = 0;
 		if (isArray(data)) {
 			data.forEach((item,index,arr) => {
-				console.log(item.price);
 				beforeTotalPrice  += item.oldPrice;
 				afterTotalPrice += item.price;
 			})	

@@ -15,7 +15,6 @@ import './appBar.scss'
 
 const mapStateToProps = (state,ownProps) => {
 	const { loginInOutReducer } = state;
-	console.log(loginInOutReducer)
 	return {
 		...loginInOutReducer
 	}
@@ -25,8 +24,6 @@ const mapDispatchToProps = (dispatch) => {
 		loginOut: () => {
 			cookie.del('userId');
 			dispatch(login_out());
-			console.log("del");
-			console.log(this.props.isLogin)
 		}
 	}
 }
@@ -63,15 +60,12 @@ class NarBar extends Component {
 	/*city标签选择触发函数*/
 	selectCity(e) {
 		const city = e.target.title;
-		console.log(city)
 		let school= this.props.schoolData.filter((element, index,arr) => {
 			return element.city === city;
 		})
-		console.log(school.length === 0)
 		if (school.length === 0) {
 			alert('暂时没有数据');
 			school.push(this.state.school);
-			console.log(school)
 		}
 		this.setState({
 			school: school[0]
@@ -79,7 +73,6 @@ class NarBar extends Component {
 	}
 	/*school标签选择触发函数*/
 	selectSchool(e) {
-		console.log(e.target.title)
 		this.setState({
 			loading: true,
 			visible: false
@@ -92,7 +85,6 @@ class NarBar extends Component {
 	}
 	/*选择所有学校*/
 	selectAll() {
-		console.log(this.state.school)
 		this.setState({
 			loading: true
 		})
@@ -116,7 +108,6 @@ class NarBar extends Component {
 			selectSchool: this.selectSchool,
 			selectAll: this.selectAll
 		}
-		console.log(isLogin)
 		return (
           <Row type = "flex" justify="center" style={{ height: '30px',lineHeight: '30px', width: '100%',background: 'rgb(51,51,51)' }}>
             <Col xs={10}>

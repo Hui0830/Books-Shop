@@ -63,7 +63,7 @@ for(let i = 1000; i < 1060; i++) {
 		sellId: i,
 		seller: {
 			img: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-			userName: '怀念不能' + i,
+			username: '怀念不能' + i,
 			sex: '男',
 			school: '江西农业大学',
 
@@ -80,17 +80,17 @@ for(let i = 1000; i < 1060; i++) {
 		author: '新文出版社/李晟',
 		describe: '《快乐上班的经济学》是一本非他视角、即站在消费者的视角了解身边的商品价格及服务的经济学入门书籍。《快乐上班的经济学》为我们揭开经济规律面纱的经济学是一门十分有趣的学问，而且时常还能帮助我们防止一些在工作中遇到的意想不到的失败。也就是说，虽然经济学是一门既有趣又实用的学问，但许多年轻人在没有学习它的基础上就开始了工作，因而非常容易被经济活动中的惊涛骇浪所吞没。',
 		comment: [
-			{userName: "笔试"+i,userId: i,content: "不错"},
-			{userName: "笔试"+i,userId: i,content: "不错"},
-			{userName: "笔试"+i,userId: i,content: "不错"},
-			{userName: "笔试"+i,userId: i,content: "不错"}
+			{username: "笔试"+i,userId: i,content: "不错"},
+			{username: "笔试"+i,userId: i,content: "不错"},
+			{username: "笔试"+i,userId: i,content: "不错"},
+			{username: "笔试"+i,userId: i,content: "不错"}
 		]
 	};
 	
 	const userItem = {
 		id: i,
 		avatar: 'http://ubookmall.b0.upaiyun.com/user/2017/10/03/7564424992_1507024484.jpg!big',
-		userName: '怀念不能' + i,
+		username: '怀念不能' + i,
 		tel: '1572778'+ i,
 		password: '12'+i,
 		sex: '男',
@@ -126,7 +126,7 @@ for(let i = 1000; i < 1060; i++) {
 		address: [
 			{	
 				id:i,
-				userName: '李文辉',
+				username: '李文辉',
 				tel: '15727785909',
 				mailCode:'000000',
 				provinces: '江西',
@@ -134,7 +134,7 @@ for(let i = 1000; i < 1060; i++) {
 			},
 			{	
 				id:i+1,
-				userName: '钟兴',
+				username: '钟兴',
 				tel: '15727785909',
 				mailCode:'000000',
 				provinces: '江西',
@@ -200,13 +200,13 @@ for(let i = 1000; i < 1060; i++) {
 			trends: [
 				{
 					userId: i,
-					userName: '怀念不能'+ i,
+					username: '怀念不能'+ i,
 					avatar: 'http://ubookmall.b0.upaiyun.com/user/2017/10/03/7564424992_1507024484.jpg!big',
 					content: "不错，尽快发货" 
 				},
 				{
 					userId: i+1,
-					userName: '怀念不能'+ i+1,
+					username: '怀念不能'+ i+1,
 					avatar: 'http://ubookmall.b0.upaiyun.com/user/2017/10/03/7564424992_1507024484.jpg!big',
 					content: "不错，尽快发货不错，尽快发货不错，尽快发货不错，尽快发货不错，尽快发货不错，尽快发货不错，尽快发货不错，尽快发货不错，尽快发货不错，尽快发货不错，尽快发货" 
 				}
@@ -214,13 +214,13 @@ for(let i = 1000; i < 1060; i++) {
 			seller: [
 				{
 					userId: i,
-					userName: '不能'+ i,
+					username: '不能'+ i,
 					avatar: 'http://ubookmall.b0.upaiyun.com/user/2017/10/03/7564424992_1507024484.jpg!big',
 					content: "不错，尽快发货" 
 				},
 				{
 					userId: i+1,
-					userName: '不能'+ i+1,
+					username: '不能'+ i+1,
 					avatar: 'http://ubookmall.b0.upaiyun.com/user/2017/10/03/7564424992_1507024484.jpg!big',
 					content: "不错，尽快发货不错，尽快发货不错，尽快发货不错，尽快发货不错，尽快发货不错，尽快发货不错，尽快发货不错，尽快发货不错，尽快发货不错，尽快发货不错，尽快发货" 
 				}
@@ -235,9 +235,9 @@ for(let i = 1000; i < 1060; i++) {
 /*----------------侧边栏数据----start-----------------*/
 /*热门个人展示数据*/
 userData.forEach((item,index) => {
-	const { id,img,userName,fan } = item;
+	const { id,img,username,fan } = item;
 	if (index <= 10) {
-		goodPerson.push({ id,img,name:userName,collect:fan }) 
+		goodPerson.push({ id,img,name:username,collect:fan }) 
 	}
 	
 })
@@ -285,31 +285,18 @@ app.all('*', function(req, res, next) {
 });
 
 app.post('/api/login', function (req, res) {
-	const {userName,password} = req.body;
-	console.log(userName,String(password))
-	const user = getUser(userData,'tel',userName)
-	console.log(user)
+	const {username,password} = req.query;
+	const user = getUser(userData,'tel',username)
   	if (user.length > 0 && user[0].password === password) {
   		res.json({
   			success: true,
-  			userInfo: user[0]
-  				/*id: 20152213,
-  				avatar: 'http://ubookmall.b0.upaiyun.com/user/2017/10/03/7564424992_1507024484.jpg!big',
-  				userName: '怀念不能',
-  				tel: '15727785909',
-  				sex: '男',
-  				city: '江西',
-  				school: '江西农业大学',
-  				fan: 4 + Math.floor(Math.random()+1),
-  				concern: 2 + Math.floor(Math.random()+1),
-  				signature: '怀念不能/男,江西农业大学'*/
-  			
+			  userInfo: user[0],
+			  code: 0
   		})
   	} else {
   		res.status(403)
   		res.json({
   			success:false,
-  			
   			data: 'error'
   		})
   	}

@@ -21,12 +21,12 @@ export default class Login extends Component {
 	}
 	handleSubmit(e, err, values) {
 	  e.preventDefault();
-	  
+			console.log(values);
 	    if (!err) {
 	    	this.setState({
 	    		loading:true
 	    	})
-		    loginPost('/mall/user/user/login',JSON.parse(JSON.stringify({...values})))
+		    loginPost('/api/login',JSON.parse(JSON.stringify({...values})))
 		    .then(res => {
 		    	this.setState({
 		    		loading:false
@@ -39,7 +39,6 @@ export default class Login extends Component {
 		    	})
 		        message.error(`${err}`)
 		    })
-	    	console.log('Received values of form: ', values);
 	    }
 	  }
 	render() {

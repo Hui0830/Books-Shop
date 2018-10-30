@@ -12,16 +12,16 @@ import HomeBooksList from './components/booksList/verticalList';
 
 import MySearch from './home/search';
 import Mysider from './home/sider';
-
-require('../public/css/layout.scss') ;
-require('./index.scss');
 import bookImg from '../public/images/logo.png';
 
 import { getPageData } from '../action/Action.js';
+require('../public/css/layout.scss') ;
+require('./index.scss');
+
 
 const mapStateToProps = (state,ownProp) => {
-  console.log(state,ownProp)
   const { asyncReducer,loginInOutReducer } = state;
+  console.log(state);
   return {
   	...loginInOutReducer,
     ...asyncReducer
@@ -50,7 +50,7 @@ class App extends Component {
 
 	componentDidMount() {
 		/*do some thing*/
-		this.props.onGetData(null,'/product/book/list');
+		this.props.onGetData(null,'/index');
 		
 	}
 	// getArray(i,j) {
@@ -61,8 +61,7 @@ class App extends Component {
 	// }
 	render() {
 		const { Header , Content ,Sider } = Layout;
-		const { newBooks,goodsilderBooks,goodPerson } = this.props;
-		const hotBooks = this.props.data
+		const { newBooks,goodsilderBooks,goodPerson, hotBooks } = this.props;
 		const data = [
 			goodsilderBooks,
 			goodPerson,

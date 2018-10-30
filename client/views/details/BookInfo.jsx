@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Icon, Input } from 'antd';
+import Comment from './comment';
 
 require('./detail.scss');
-import Comment from './comment';
 
 const IconText = ({ type, text }) => (
   <span>
@@ -13,7 +13,6 @@ const IconText = ({ type, text }) => (
 );
 
 const BookInfo = ({bookInfo}) => {
-	console.log(bookInfo)
 	return (
 		<div className="book_item overflow_hidden">
 			{/*-------------书籍图片--------------*/}

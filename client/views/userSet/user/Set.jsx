@@ -10,7 +10,6 @@ require('./user.scss');
 // const userInfo = store.getState().userData[0];
 
 const mapStateToProps = (state,ownProps) => {
-	console.log(state)
 	const { userInfo } = state.userInfoData;
 	return {
 		userInfo
@@ -36,7 +35,6 @@ const mapStateToProps = (state,ownProps) => {
 		})
 	}
 	render() {
-		console.log(this.props)
 		const {userInfo} = this.props;
 		return (
 			<div className="user_set overflow_hidden border_l_t">

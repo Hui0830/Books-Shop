@@ -74,9 +74,8 @@ class RegistContainer extends Component {
 	    	this.setState({
 	    		loading:true
 	    	})
-	    	console.log(JSON.stringify({city,school,...values}));
 
-	    	post('/mall/user/user/register',JSON.parse(JSON.stringify({city,school,...values})))
+	    	post('/api/register',JSON.parse(JSON.stringify({city,school,...values})))
 	    	.then((res) => {
 	    		this.setState({
 	    			loading:false
@@ -88,9 +87,7 @@ class RegistContainer extends Component {
 	    			loading:false
 	    		})
 	    		message.error(`${err.msg}`)
-	    		console.log(city,school,err)
 	    	})
-	      	console.log('Received values of form: ', values);
 	    }
 	  });
 	}

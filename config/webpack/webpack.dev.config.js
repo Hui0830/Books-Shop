@@ -120,7 +120,7 @@ let config = merge(baseWebpackConfig,{
 	/*设置API转发*/
 	devServer: {
 		host:'0.0.0.0',
-		port: 8080,
+		port: 8088,
 		hot: true,
 		inline: true,
 		contentBase: path.resolve(__dirname,webpackFile.devDirectory),
@@ -136,7 +136,7 @@ let config = merge(baseWebpackConfig,{
 				secure: true
 			},
 			{
-				context: ['/mall/*'],
+				context: ['/api/*'],
 				target: 'http://3be1627f.ngrok.io',
 				secure: true
 			},

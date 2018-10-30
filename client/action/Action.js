@@ -25,7 +25,7 @@ export const fetchError = (prefix,error) => {
 /*-----异步获取首页信息操作------*/
 export const getPageData = (prefix,datas,pageUrl) => {
 	return (dispatch) => {
-		const apiUrl = `/mall${pageUrl}`;
+		const apiUrl = `/api${pageUrl}`;
 
 		dispatch(fetchStart(prefix));
 		
@@ -33,8 +33,8 @@ export const getPageData = (prefix,datas,pageUrl) => {
 			dispatch(fetchSuccess(prefix,res));
 		})
 		.catch((error) => {
+			console.log(error);
 			dispatch(fetchError(prefix,error));
-			
 		})
 	}
 }

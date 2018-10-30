@@ -20,13 +20,7 @@ const mapStateToProps = (state,OwnProp) => {
  		router: PropTypes.object,
  		store: PropTypes.object 
  	}
-	constructor() {
-		super(...arguments);
-
-		
-	}
 	componentDidMount() {
-		console.log(this.context.router)
 		const search = this.context.router.route.location.search;
 		this.context.store.dispatch(getPageData("productPage",null,`/product${search}`));
 	}

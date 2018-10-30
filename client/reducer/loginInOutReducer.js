@@ -13,7 +13,8 @@ const isLogin = (state={isLogin:false},action) => {
 		case FETCH_START:
 			return {...state,status: 'loading'};
 		case FETCH_SUCCESS:
-			const userInfo = action.result.data
+			console.log("action", action);
+			const userInfo = action.result.userInfo;
 			return {...state,status:'success',userInfo};
 		case FETCH_ERROR:
 			 return {...state,status:'error',...action.error};

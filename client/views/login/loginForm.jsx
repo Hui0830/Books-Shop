@@ -16,7 +16,7 @@ const Login = ({form,handleSubmit,loading}) => {
     return (
       <div>
       
-      <Form onSubmit={(e) => form.validateFields((err, values) => handleSubmit(e,err, values)) } className="login-form">
+      <Form method="POST" onSubmit={(e) => form.validateFields((err, values) => handleSubmit(e,err, values)) } className="login-form">
         <FormItem 
           label="用户名"
           hasFeedback

@@ -15,7 +15,6 @@ import { cookie } from '../../until/cookie.js';
 const mapStateToProps = (state,ownProps) => {
 	const { isLogin } = state.loginInOutReducer;
 	const { sellerInfo,sellerBooks,sellerFans,status } = state.sellerData;
-	console.log(state.sellerData)
 	return {
 		isLogin,
 		sellerInfo,
@@ -62,7 +61,6 @@ class ProductShow extends Component {
 			}
 			
 		})
-		console.log(sellerBooks);
 		this.setState({
 			listData: sellerBooks,
 			isUp: !isUp

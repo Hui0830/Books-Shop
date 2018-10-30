@@ -88,7 +88,6 @@ class ProductShow extends Component {
 			}
 			
 		})
-		console.log(books);
 		this.setState({
 			listData: books,
 			isUp: !isUp
